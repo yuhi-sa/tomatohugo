@@ -1,31 +1,55 @@
+# テーマの名前
 name = 'Theme name'
+
+# ライセンス情報
 license = 'MIT'
 licenselink = 'https://github.com/owner/repo/LICENSE'
+
+# テーマの説明
 description = 'Theme description'
 
-# The home page of the theme, where the source can be found
-homepage = 'https://github.com/owner/repo'
+# テーマのソースコードが見つかるホームページ
+homepage = 'https://github.com/yuhi-sa/tomatohugo'
 
-# If you have a running demo of the theme
+# テーマのデモサイトがあれば指定
 demosite = 'https://owner.github.io/repo'
 
-# Taxonomy terms
+# タクソノミー用語
 tags = ['blog', 'company']
 features = ['some', 'awesome', 'features']
 
-# If the theme has multiple authors
+# 複数の作者がいる場合
 authors = [
   {name = 'Name of author', homepage = 'Website of author'},
   {name = 'Name of author', homepage = 'Website of author'}
 ]
 
-# If the theme has a single author
+# 単一の作者がいる場合
 [author]
   name = 'Your name'
   homepage = 'Your website'
 
-# If porting an existing theme
+# 既存のテーマをポートする場合の情報
 [original]
   author = 'Name of original author'
   homepage = 'Website of original author'
   repo = 'https://github.com/owner/repo'
+
+# 対応言語の設定
+[languages]
+  [languages.ja]
+    languageName = "Japanese"
+  [languages.en]
+    languageName = "English"
+
+# Google Analyticsの設定
+googleAnalytics = "測定ID"
+
+# robots.txt ファイルを有効にするかどうかの設定
+enableRobotsTXT = true
+
+# Pygmentsスタイルなどのコードハイライト設定
+pygmentsStyle = "trac"
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+pygmentsCodefencesGuessSyntax = true
