@@ -44,6 +44,7 @@ authors = [
 
 # Google Analyticsの設定
 googleAnalytics = "測定ID"
+googleAdClientId = "広告クライアントID"
 
 # robots.txt ファイルを有効にするかどうかの設定
 enableRobotsTXT = true
