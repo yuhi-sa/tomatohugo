@@ -1,3 +1,8 @@
+![GitHub last commit](https://img.shields.io/github/last-commit/yuhi-sa/tomatohugo)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/yuhi-sa/tomatohugo)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/yuhi-sa/tomatohugo)
+![GitHub top language](https://img.shields.io/github/languages/top/yuhi-sa/tomatohugo)
+![GitHub language count](https://img.shields.io/github/languages/count/yuhi-sa/tomatohugo)
 # tomatohugo
 
 ## Features
