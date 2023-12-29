@@ -54,3 +54,6 @@ pygmentsStyle = "trac"
 pygmentsUseClasses = true
 pygmentsCodeFences = true
 pygmentsCodefencesGuessSyntax = true
+
+# ページネーションの設定
+paginate = 10

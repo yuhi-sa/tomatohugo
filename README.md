@@ -1,8 +1,14 @@
-# Theme Name
+# tomatohugo
+## Theme Name
 
 ## Features
 
 ## Installation
 
 ## Configuration
-# tomatohugo
+
+## others
+```
+hugo gen chromastyles --style=trac > assets/css/syntax.css
+
+```

@@ -1,8 +1,5 @@
+/* --- General blocks --- */
 header {
-  width: 90%;
-}
-
-main {
   width: 90%;
 }
 
@@ -12,30 +9,23 @@ footer {
 
 body {
   font-family: 'Lora', 'Times New Roman', serif;
-  font-size: 18px;
-  color: #404040;
-  position: relative;
-  background: #FFF;
   display: flex;
   flex-flow: column;
   align-items: center;
-  height: 100vh;
-  width: 90%;
-  margin: 0 auto;
 }
 
 .container {
+  margin-top: 10px;
   margin-bottom: 50px;
-  flex: 1 0 auto;
 }
 
+/* --- Code blocks --- */
 pre {
   background-color: #f4f4f4;
   padding: 10px;
   border: 1px solid #ddd;
 }
 
-/* --- Code blocks --- */
 .chroma .ln {
   margin-right: 0.8em;
   padding: 0 0.4em 0 0.4em;
@@ -66,4 +56,11 @@ pre code.hljs {
 
 .highlight td:last-child pre code, .highlight pre code {
   white-space: pre;
+}
+
+/* --- Pagination blocks --- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
