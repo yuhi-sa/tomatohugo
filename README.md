@@ -13,8 +13,8 @@
 ```config.toml
 # Google Analytics and Adsence Configuration
 [params]
-  googleAnalytics = "G-LN6QP6VVM3"
-  googleAdClientId = "ca-pub-9558545098866170"
+  googleAnalyticsID = "G-LN6QP6VVM3"
+  googleAdClientID = "ca-pub-9558545098866170"
 
 # Set your Google Analytics Measurement ID to enable tracking on your website.
 # Set your Google Ad Client ID to enable Google Adsense on your website.
