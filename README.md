@@ -11,12 +11,9 @@
 
 ## Configuration
 ```config.toml
-# Google Analytics Configuration
-[google]
-  # Google Analytics Configuration
+# Google Analytics and Adsence Configuration
+[params]
   googleAnalytics = "G-LN6QP6VVM3"
-
-  # Google Adsense Configuration
   googleAdClientId = "ca-pub-9558545098866170"
 
 # Set your Google Analytics Measurement ID to enable tracking on your website.
@@ -40,7 +37,7 @@ pygmentsCodefencesGuessSyntax = true
 # - pygmentsCodefencesGuessSyntax: Enable or disable automatic syntax guessing for code fences.
 
 # Pagination Configuration
-paginate = 10
+paginate = 5
 
 # Set the number of items to display per page in pagination.
 ```
