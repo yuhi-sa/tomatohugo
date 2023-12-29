@@ -1,21 +1,21 @@
 {{ define "main" }}
-  <div class="container">
-    {{ .Content }}
-    <div>
-      {{ range .Paginator.Pages }}
-        <div class="col-md-12 mb-3">
-          <div class="card">
-            <a href="{{ .RelPermalink }}">
-              <div class="card-body">
-                <h3 class="card-title">{{ .LinkTitle }}</h3>
-                <p class="card-text"><small class="text-muted">{{ .Date.Format "2006-01-02" }}</small></p>
-              </div>
-            </a>
+<div class="container">
+  {{ .Content }}
+  <div>
+    {{ range .Paginator.Pages }}
+    <div class="col-md-12 mb-3">
+      <div class="card">
+        <a href="{{ .RelPermalink }}">
+          <div class="card-body">
+            <h3 class="card-title">{{ .LinkTitle }}</h3>
+            <p class="card-text"><small class="text-muted">{{ .Date.Format "2006-01-02" }}</small></p>
           </div>
-        </div>
-      {{ end }}
+        </a>
+      </div>
     </div>
-    {{ template "_internal/pagination.html" . }}
+    {{ end }}
   </div>
+  {{ template "_internal/pagination.html" . }}
+</div>
 
 {{ end }}
