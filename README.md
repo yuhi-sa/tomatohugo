@@ -12,13 +12,14 @@
 ## Configuration
 ```config.toml
 # Google Analytics Configuration
-GoogleAnalytics = "Measurement ID"
+[google]
+  # Google Analytics Configuration
+  googleAnalytics = "G-LN6QP6VVM3"
+
+  # Google Adsense Configuration
+  googleAdClientId = "ca-pub-9558545098866170"
 
 # Set your Google Analytics Measurement ID to enable tracking on your website.
-
-# Google Adsense Configuration
-GoogleAdClientId = "Ad Client ID"
-
 # Set your Google Ad Client ID to enable Google Adsense on your website.
 
 # Robots.txt Configuration
