@@ -1,7 +1,17 @@
 {{ define "main" }}
-  {{ .Content }}
-  {{ range site.RegularPages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    {{ .Summary }}
-  {{ end }}
+  <div class="container mt-4">
+    {{ .Content }}
+    <div class="row">
+      {{ range site.RegularPages }}
+        <div class="col-md-12">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h2 class="card-title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+              <p class="card-text">{{ .Summary }}</p>
+            </div>
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  </div>
 {{ end }}
