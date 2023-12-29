@@ -1,8 +1,5 @@
+/* --- General blocks --- */
 header {
-  width: 90%;
-}
-
-main {
   width: 90%;
 }
 
@@ -10,41 +7,44 @@ footer {
   width: 90%;
 }
 
+main {
+  width: 80%;
+}
+
 body {
   font-family: 'Lora', 'Times New Roman', serif;
-  font-size: 18px;
-  color: #404040;
-  position: relative;
-  background: #FFF;
   display: flex;
   flex-flow: column;
   align-items: center;
-  height: 100vh;
-  width: 90%;
-  margin: 0 auto;
 }
 
 .container {
+  margin-top: 10px;
   margin-bottom: 50px;
-  flex: 1 0 auto;
 }
 
+img {
+  width: 100%;
+}
+
+/* --- Code blocks --- */
 pre {
   background-color: #f4f4f4;
   padding: 10px;
   border: 1px solid #ddd;
 }
 
-/* --- Code blocks --- */
 .chroma .ln {
   margin-right: 0.8em;
   padding: 0 0.4em 0 0.4em;
 }
+
 pre code.hljs {
   padding: 9.5px;
 }
 
-.highlight tr, .highlight pre {
+.highlight tr,
+.highlight pre {
   border: none;
 }
 
@@ -52,7 +52,8 @@ pre code.hljs {
   border-radius: 4px;
 }
 
-.highlight td:first-child pre, .highlight pre {
+.highlight td:first-child pre,
+.highlight pre {
   border-top-left-radius: 4px;
   border-top-right-radius: unset;
   border-bottom-left-radius: 4px;
@@ -60,10 +61,19 @@ pre code.hljs {
   overflow: hidden;
 }
 
-.highlight td:last-child pre, .highlight pre {
+.highlight td:last-child pre,
+.highlight pre {
   border-radius: unset;
 }
 
-.highlight td:last-child pre code, .highlight pre code {
+.highlight td:last-child pre code,
+.highlight pre code {
   white-space: pre;
+}
+
+/* --- Pagination blocks --- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

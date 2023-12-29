@@ -16,6 +16,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Left-aligned title -->
+        <div class="navbar-brand">{{ site.Title }}</div>
+        <!-- Menu entries -->
         <ul class="navbar-nav ml-auto">
           {{- partial "partials/inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
         </ul>
@@ -41,7 +44,7 @@
         {{- end }}
       {{- end }}
       <li class="nav-item">
-        <a {{ $attrs }} href="{{ .URL | absURL }}" class="navbar-brand" > {{ $name }} </a>
+        <a {{ $attrs }} href="{{ .URL | absURL }}" class="nav-link"> {{ $name }} </a>
         {{- with .Children }}
           <ul class="navbar-nav">
             {{- partial "partials/inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
@@ -50,4 +53,3 @@
       </li>
     {{- end }}
   {{- end }}
-  
