@@ -1,0 +1,16 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{ "/" | relLangURL }}">Home</a></li>
+      {{ if .IsHome }}
+      {{ else if .IsSection }}
+        <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+      {{ else if .IsPage }}
+        {{ $sections := .Sections }}
+        {{ range $sections }}
+          <li class="breadcrumb-item"><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+        {{ end }}
+        <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+      {{ end }}
+    </ol>
+  </nav>
+  
