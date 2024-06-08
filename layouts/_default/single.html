@@ -1,7 +1,7 @@
 {{ define "main" }}
 <div style="max-width: 80%; margin: 0 auto;">
   {{ $content := .Content }}
-  {{ $content := replaceRE "<img " "<img style=\"max-width: 50%; height: auto;\" " $content }}
+  {{ $content := replaceRE "<img " "<img style=\"max-width: 50%; height: auto; display: block; margin: 0 auto;\" " $content }}
   {{ $content | safeHTML }}
 </div>
 {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
