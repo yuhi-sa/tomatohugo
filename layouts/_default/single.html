@@ -1,5 +1,7 @@
 {{ define "main" }}
 {{ $content := .Content }}
-{{ $content := replaceRE "<img " " <img style=\"max-width: 50%; height: auto;\" " $content }}
+{{ $content := replaceRE "<img " "<img style=\"max-width: 50%; height: auto;\" " $content }}
 {{ $content | safeHTML }}
-{{ partial " terms.html" (dict "taxonomy" "tags" "page" .) }} {{ partial "breadcrumbs.html" . }} {{ end }}
+{{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+{{ partial "breadcrumbs.html" . }}
+{{ end }}
