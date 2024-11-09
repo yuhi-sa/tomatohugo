@@ -1,7 +1,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <meta name="robots" content="index,follow">
-<meta property="og:title" content="{{ .Title }} | {{ site.Title }}">
-<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+
+<!-- OGP Tags -->
+<meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}">
+<meta property="og:description" content="{{ .Params.description | default .Site.Params.description }}">
+<meta property="og:image" content="{{ with .Params.images }}{{ index . 0 }}{{ else }}{{ index .Site.Params.images 0 }}{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta name="twitter:card" content="summary_large_image">
+
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ printf "%s | %s" .Title .Site.Title }}{{ end }}</title>
+
 {{ partialCached "head/css.html" . }}
 {{ partialCached "head/js.html" . }}
