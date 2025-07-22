@@ -4,18 +4,23 @@
       <h1 class="mb-4">{{ .Title }}</h1>
       {{ .Content }}
       <div class="row">
-        {{ range .Pages }}
-          <div class="col-md-6 mb-4">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title"><a href="{{ .RelPermalink }}" class="text-decoration-none">{{ .LinkTitle }}</a></h5>
-                <p class="card-text"><small class="text-muted">{{ .Date.Format "January 2, 2006" }}</small></p>
-                <p class="card-text">{{ .Summary | plainify | truncate 100 "..." }}</p>
-                <a href="{{ .RelPermalink }}" class="btn btn-primary">Read More &rarr;</a>
+        <div class="col-md-8">
+          {{ range .Pages }}
+            <div class="col-md-12 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title"><a href="{{ .RelPermalink }}" class="text-decoration-none">{{ .LinkTitle }}</a></h5>
+                  <p class="card-text"><small class="text-muted">{{ .Date.Format "January 2, 2006" }}</small></p>
+                  <p class="card-text">{{ .Summary | plainify | truncate 100 "..." }}</p>
+                  <a href="{{ .RelPermalink }}" class="btn btn-primary">Read More &rarr;</a>
+                </div>
               </div>
             </div>
-          </div>
-        {{ end }}
+          {{ end }}
+        </div>
+        <div class="col-md-4">
+          {{ partial "ads/sidebar.html" . }}
+        </div>
       </div>
     </div>
   </section>
