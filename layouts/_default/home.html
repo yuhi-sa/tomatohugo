@@ -1,21 +1,26 @@
 {{ define "main" }}
-<div class="container">
-  {{ .Content }}
-  <div>
-    {{ range .Paginator.Pages }}
-    <div class="col-md-12 mb-3">
-      <div class="card">
-        <a href="{{ .RelPermalink }}">
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h2 class="mb-4">Latest Posts</h2>
+        {{ .Content }}
+        {{ range .Paginator.Pages }}
+        <div class="card mb-4">
           <div class="card-body">
-            <h5 class="card-title">{{ .LinkTitle }}</h5>
-            <p class="card-text"><small class="text-muted">{{ .Date.Format "2006-01-02" }}</small></p>
+            <h5 class="card-title"><a href="{{ .RelPermalink }}" class="text-decoration-none">{{ .LinkTitle }}</a></h5>
+            <p class="card-text"><small class="text-muted">{{ .Date.Format "January 2, 2006" }}</small></p>
+            <p class="card-text">{{ .Summary | plainify | truncate 150 "..." }}</p>
+            <a href="{{ .RelPermalink }}" class="btn btn-primary">Read More &rarr;</a>
           </div>
-        </a>
+        </div>
+        {{ end }}
+        {{ template "_internal/pagination.html" . }}
+      </div>
+      <div class="col-md-4">
+        <!-- Sidebar content can go here -->
       </div>
     </div>
-    {{ end }}
   </div>
-  {{ template "_internal/pagination.html" . }}
-</div>
-
+</section>
 {{ end }}

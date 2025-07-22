@@ -1,9 +1,22 @@
 {{ define "main" }}
-<div style="max-width: 80%; margin: 0 auto;">
-  {{ $content := .Content }}
-  {{ $content := replaceRE "<img " "<img style=\"max-width: 50%; height: auto; display: block; margin: 0 auto;\" " $content }}
-  {{ $content | safeHTML }}
-</div>
-{{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
-{{ partial "breadcrumbs.html" . }}
+<section class="py-5">
+  <div class="container">
+    <article>
+      <header class="mb-4">
+        <h1 class="fw-bolder mb-1">{{ .Title }}</h1>
+        <div class="text-muted fst-italic mb-2">Posted on {{ .Date.Format "January 2, 2006" }}</div>
+        {{ with .Params.tags }}
+          {{ range . }}
+            <a class="badge bg-secondary text-decoration-none link-light" href="{{ "tags" | absURL }}/{{ . | urlize }}">{{ . }}</a>
+          {{ end }}
+        {{ end }}
+      </header>
+      <section class="mb-5">
+        {{ .Content }}
+      </section>
+    </article>
+    {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+    {{ partial "breadcrumbs.html" . }}
+  </div>
+</section>
 {{ end }}

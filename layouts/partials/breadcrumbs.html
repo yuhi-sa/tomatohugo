@@ -1,16 +1,15 @@
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{{ "/" | relLangURL }}">Home</a></li>
-      {{ if .IsHome }}
-      {{ else if .IsSection }}
-        <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
-      {{ else if .IsPage }}
-        {{ $sections := .Sections }}
-        {{ range $sections }}
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ "/" | relLangURL }}">Home</a></li>
+    {{- if not .IsHome }}
+      {{- $url := replace .Permalink (printf "%s" .BaseFileName) "" }}
+      {{- range .Ancestors.Reverse }}
+        {{- if ne .Title "" }}
           <li class="breadcrumb-item"><a href="{{ .Permalink }}">{{ .Title }}</a></li>
-        {{ end }}
-        <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
-      {{ end }}
-    </ol>
-  </nav>
+        {{- end }}
+      {{- end }}
+      <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+    {{- end }}
+  </ol>
+</nav>
   
