@@ -14,12 +14,14 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--heading-color);
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 header {
   width: 100%;
   background-color: var(--header-bg);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-1);
   padding: 1rem 0;
   border-bottom: 1px solid var(--border-color);
 }
@@ -28,6 +30,10 @@ main {
   width: 90%;
   max-width: 800px;
   margin: 2rem 0;
+  padding: 1rem;
+  background-color: var(--surface-color);
+  box-shadow: var(--shadow-1);
+  border-radius: 4px;
 }
 
 footer {
@@ -36,11 +42,12 @@ footer {
   padding: 2rem 0;
   margin-top: 2rem;
   border-top: 1px solid var(--border-color);
+  box-shadow: var(--shadow-1);
 }
 
 .container {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 img {
@@ -59,18 +66,56 @@ a:hover {
   color: var(--link-hover-color);
 }
 
+.card {
+  background-color: var(--surface-color);
+  box-shadow: var(--shadow-1);
+  border: none;
+  border-radius: 4px;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.btn {
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.btn-outline-secondary {
+  color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--secondary-color);
+  color: var(--surface-color);
+}
+
 /* --- Code blocks --- */
 pre {
-  padding: 15px;
-  border-radius: 5px;
+  padding: 1rem;
+  border-radius: 4px;
   overflow-x: auto;
   position: relative;
   background-color: var(--code-bg);
+  box-shadow: var(--shadow-1);
 }
 
 code {
   font-family: var(--font-family-monospace);
-  padding: 2px 4px;
+  padding: 0.2rem 0.4rem;
   border-radius: 3px;
   background-color: var(--code-bg);
 }
@@ -83,13 +128,13 @@ pre code {
 
 .copy-code-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0.5rem;
+  right: 0.5rem;
   background-color: var(--secondary-color);
   color: white;
   border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.3s;
@@ -139,4 +184,22 @@ pre:hover .copy-code-button {
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
+}
+
+.pagination .page-item .page-link {
+  color: var(--primary-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  margin: 0 0.25rem;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--surface-color);
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: var(--code-bg);
+  color: var(--primary-color);
 }
