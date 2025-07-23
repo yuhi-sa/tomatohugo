@@ -1,27 +1,99 @@
 {{ define "main" }}
-  <section class="py-5">
-    <div class="container">
-      <h1 class="mb-4">{{ .Title }}</h1>
-      {{ .Content }}
-      <div class="row">
-        <div class="col-md-8">
+<div class="container">
+  <section itemscope itemtype="https://schema.org/CollectionPage">
+    <header class="page-header">
+      <h1 itemprop="name">{{ .Title }}</h1>
+      {{ if .Content }}
+      <div class="page-description lead" itemprop="description">
+        {{ .Content }}
+      </div>
+      {{ end }}
+      {{ if .Pages }}
+      <p class="page-count text-muted">
+        {{ len .Pages }} {{ if eq (len .Pages) 1 }}article{{ else }}articles{{ end }}
+      </p>
+      {{ end }}
+    </header>
+    
+    <div class="row">
+      <!-- Main Content -->
+      <div class="col-lg-8">
+        <div class="articles-grid" role="main" aria-label="{{ .Title }} articles">
           {{ range .Pages }}
-            <div class="col-md-12 mb-4">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title"><a href="{{ .RelPermalink }}" class="text-decoration-none">{{ .LinkTitle }}</a></h5>
-                  <p class="card-text"><small class="text-muted">{{ .Date.Format "January 2, 2006" }}</small></p>
-                  <p class="card-text">{{ .Summary | plainify | truncate 100 "..." }}</p>
-                  <a href="{{ .RelPermalink }}" class="btn btn-primary">Read More &rarr;</a>
+          <article class="card article-card" itemscope itemtype="https://schema.org/Article">
+            <div class="card-body">
+              <div class="card-content">
+                <header class="article-header">
+                  <h2 class="card-title">
+                    <a href="{{ .RelPermalink }}" 
+                       itemprop="url"
+                       class="article-link">
+                      <span itemprop="headline">{{ .LinkTitle }}</span>
+                    </a>
+                  </h2>
+                  
+                  <div class="card-meta">
+                    <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" 
+                          itemprop="datePublished">
+                      <i class="far fa-calendar-alt" aria-hidden="true"></i>
+                      {{ .Date.Format "January 2, 2006" }}
+                    </time>
+                    
+                    {{ with .Params.author }}
+                    <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                      <i class="far fa-user" aria-hidden="true"></i>
+                      <span itemprop="name">{{ . }}</span>
+                    </span>
+                    {{ end }}
+                    
+                    {{ if .ReadingTime }}
+                    <span>
+                      <i class="far fa-clock" aria-hidden="true"></i>
+                      {{ .ReadingTime }} min read
+                    </span>
+                    {{ end }}
+                  </div>
+                </header>
+                
+                <div class="article-excerpt">
+                  <p itemprop="description">{{ .Summary | plainify | truncate 150 "..." }}</p>
                 </div>
+                
+                {{ with .Params.tags }}
+                <div class="article-tags">
+                  {{ range . }}
+                  <a href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}" 
+                     class="badge badge-custom" 
+                     rel="tag"
+                     itemprop="keywords">{{ . }}</a>
+                  {{ end }}
+                </div>
+                {{ end }}
               </div>
+              
+              <footer class="card-footer">
+                <a href="{{ .RelPermalink }}" 
+                   class="btn btn-primary btn-sm"
+                   aria-label="Read full article: {{ .LinkTitle }}">
+                  Read More
+                  <i class="fas fa-arrow-right ms-2" aria-hidden="true"></i>
+                </a>
+              </footer>
+              
+              <meta itemprop="url" content="{{ .Permalink }}">
             </div>
+          </article>
           {{ end }}
         </div>
-        <div class="col-md-4">
+      </div>
+      
+      <!-- Sidebar -->
+      <aside class="col-lg-4" role="complementary" aria-label="Sidebar">
+        <div class="sidebar-content">
           {{ partial "ads/sidebar.html" . }}
         </div>
-      </div>
+      </aside>
     </div>
   </section>
+</div>
 {{ end }}

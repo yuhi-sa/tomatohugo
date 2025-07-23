@@ -6,7 +6,7 @@
   <div class="mt-3">
     <h6 class="d-inline-block me-2">{{ $label }}:</h6>
     {{- range . }}
-      <a href="{{ .RelPermalink }}" class="badge bg-secondary text-decoration-none link-light me-1">{{ .LinkTitle }}</a>
+      <a href="{{ .RelPermalink }}" class="badge badge-custom text-decoration-none me-1">{{ .LinkTitle }}</a>
     {{- end }}
   </div>
 {{- end }}

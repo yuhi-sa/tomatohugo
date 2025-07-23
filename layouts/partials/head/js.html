@@ -1,9 +1,5 @@
-<!-- Load Bootstrap 5 JavaScript (Includes Popper.js) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Load MathJax CDN -->
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
-
-<!-- Script to configure MathJax settings -->
+<!-- Load MathJax CDN (only if needed) -->
+{{ if .Params.math }}
 <script>
   MathJax = {
     tex: {
@@ -11,7 +7,15 @@
     }
   };
 </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+{{ end }}
+
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Load custom scripts -->
-<script src="{{ "js/copy-code.js" | relURL }}"></script>
-<script src="{{ "js/dark-mode.js" | relURL }}"></script>
+{{ $darkMode := resources.Get "js/dark-mode.js" | minify }}
+<script src="{{ $darkMode.RelPermalink }}"></script>
+
+{{ $copyCode := resources.Get "js/copy-code.js" | minify }}
+<script src="{{ $copyCode.RelPermalink }}"></script>

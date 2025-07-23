@@ -1,22 +1,92 @@
 {{ define "main" }}
-<section class="py-5">
-  <div class="container">
-    <article>
-      <header class="mb-4">
-        <h1 class="fw-bolder mb-1">{{ .Title }}</h1>
-        <div class="text-muted fst-italic mb-2">Posted on {{ .Date.Format "January 2, 2006" }}</div>
-        {{ with .Params.tags }}
-          {{ range . }}
-            <a class="badge bg-secondary text-decoration-none link-light" href="{{ "tags" | absURL }}/{{ . | urlize }}">{{ . }}</a>
-          {{ end }}
+<div class="container">
+  <article itemscope itemtype="https://schema.org/Article">
+    <!-- Article Header -->
+    <header class="article-header">
+      <h1 itemprop="headline">{{ .Title }}</h1>
+      
+      {{ if .Params.description }}
+      <p class="lead article-description" itemprop="description">
+        {{ .Params.description }}
+      </p>
+      {{ end }}
+      
+      <div class="article-meta">
+        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" itemprop="datePublished">
+          <i class="far fa-calendar-alt" aria-hidden="true"></i>
+          {{ .Date.Format "January 2, 2006" }}
+        </time>
+        
+        {{ if ne .Date .Lastmod }}
+        <time datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" itemprop="dateModified">
+          <i class="far fa-edit" aria-hidden="true"></i>
+          Updated {{ .Lastmod.Format "January 2, 2006" }}
+        </time>
         {{ end }}
-      </header>
-      <section class="mb-5">
-        {{ .Content }}
-      </section>
-    </article>
-    {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+        
+        {{ with .Params.author }}
+        <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+          <i class="far fa-user" aria-hidden="true"></i>
+          <span itemprop="name">{{ . }}</span>
+        </span>
+        {{ end }}
+        
+        {{ if .ReadingTime }}
+        <span aria-label="Reading time">
+          <i class="far fa-clock" aria-hidden="true"></i>
+          {{ .ReadingTime }} min read
+        </span>
+        {{ end }}
+      </div>
+      
+      {{ with .Params.tags }}
+      <div class="article-tags" role="group" aria-label="Article tags">
+        {{ range . }}
+        <a href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}" 
+           class="badge badge-custom" 
+           rel="tag"
+           itemprop="keywords">
+          {{ . }}
+        </a>
+        {{ end }}
+      </div>
+      {{ end }}
+    </header>
+    
+    <!-- Featured Image -->
+    {{ with .Params.images }}
+    <figure class="article-image">
+      <img src="{{ index . 0 | absURL }}" 
+           alt="{{ $.Params.image_alt | default $.Title }}" 
+           itemprop="image"
+           loading="lazy"
+           width="{{ $.Params.image_width | default 1200 }}"
+           height="{{ $.Params.image_height | default 630 }}">
+      {{ if $.Params.image_caption }}
+      <figcaption>{{ $.Params.image_caption }}</figcaption>
+      {{ end }}
+    </figure>
+    {{ end }}
+    
+    <!-- Article Content -->
+    <div class="article-content" itemprop="articleBody">
+      {{ .Content }}
+    </div>
+    
+    <!-- Article Footer -->
+    <footer class="article-footer">
+      <!-- Sharing removed as requested -->
+    </footer>
+    
+    <!-- Schema.org Metadata -->
+    <meta itemprop="wordCount" content="{{ .WordCount }}">
+    <meta itemprop="url" content="{{ .Permalink }}">
+  </article>
+  
+  <!-- Navigation -->
+  <nav class="article-navigation" aria-label="Article navigation">
     {{ partial "breadcrumbs.html" . }}
-  </div>
-</section>
+    {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+  </nav>
+</div>
 {{ end }}

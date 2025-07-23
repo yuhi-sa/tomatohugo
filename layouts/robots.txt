@@ -1,11 +1,30 @@
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{{ range .Data.Pages }}{{ if .IsPage }}
-<url>
-  <loc>{{ .Permalink }}</loc>
-  {{ if not .Lastmod.IsZero }}
-  <lastmod>{{ safeHTML ( .Lastmod.Format "2006-01-02T15:04:05-07:00" ) }}</lastmod>
-  <changefreq>weekly</changefreq>
-  {{ end }}
-</url>
-{{ end }}{{ end }}
-</urlset>
+User-agent: *
+{{ if .Site.Params.robots_disallow }}
+{{ range .Site.Params.robots_disallow }}
+Disallow: {{ . }}
+{{ end }}
+{{ else }}
+Disallow:
+{{ end }}
+
+{{ if not (eq .Site.BaseURL "http://localhost:1313") }}
+Sitemap: {{ "sitemap.xml" | absURL }}
+{{ end }}
+
+# Block AI crawlers if specified
+{{ if .Site.Params.block_ai_crawlers }}
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+{{ end }}

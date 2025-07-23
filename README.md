@@ -18,6 +18,24 @@ This is a simple design Hugo theme created using Bootstrap.
 # Set your Google Analytics Measurement ID to enable tracking on your website.
 # Set your Google Ad Client ID to enable Google Adsense on your website.
 
+# Navigation Menu Configuration
+[[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 10
+
+[[menu.main]]
+  name = "Posts"
+  url = "/posts/"
+  weight = 20
+
+[[menu.main]]
+  name = "About"
+  url = "/about/"
+  weight = 30
+
+# Add navigation menu items. If no menu is configured, fallback links will be displayed.
+
 # Robots.txt Configuration
 enableRobotsTXT = true
 

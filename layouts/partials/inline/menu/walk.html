@@ -1,23 +1,21 @@
 {{- $page := .page }}
 {{- range .menuEntries }}
-  {{- $attrs := dict "href" .URL }}
   {{- $class := "nav-link" }}
   {{- if $page.IsMenuCurrent .Menu . }}
     {{- $class = printf "%s %s" $class "active" }}
   {{- else if $page.HasMenuCurrent .Menu .}}
     {{- $class = printf "%s %s" $class "ancestor" }}
   {{- end }}
-  {{- $attrs = merge $attrs (dict "class" $class) }}
   {{- $name := .Name }}
   {{- with .Identifier }}
     {{- with T . }}
       {{- $name = . }}
     {{- end }}
   {{- end }}
-  <li class="nav-item">
-    <a {{ $attrs }} href="{{ .URL | absURL }}"> {{ $name }} </a>
+  <li class="nav-item mx-2">
+    <a class="{{ $class }}" href="{{ .URL | absURL }}">{{ $name }}</a>
     {{- with .Children }}
-      <ul class="navbar-nav">
+      <ul class="navbar-nav ms-3">
         {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
       </ul>
     {{- end }}
