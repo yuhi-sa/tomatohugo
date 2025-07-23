@@ -16,6 +16,3 @@
 <!-- Load custom scripts -->
 {{ $darkMode := resources.Get "js/dark-mode.js" | minify }}
 <script src="{{ $darkMode.RelPermalink }}"></script>
-
-{{ $copyCode := resources.Get "js/copy-code.js" | minify }}
-<script src="{{ $copyCode.RelPermalink }}"></script>
