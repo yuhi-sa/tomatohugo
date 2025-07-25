@@ -3,10 +3,28 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/yuhi-sa/tomatohugo)
 ![GitHub top language](https://img.shields.io/github/languages/top/yuhi-sa/tomatohugo)
 ![GitHub language count](https://img.shields.io/github/languages/count/yuhi-sa/tomatohugo)
-# tomatohugo
+
+# TomatoHugo
+
+A minimal, fast, and accessible Hugo theme with a clean black & white design.
 
 ## Features
-This is a simple design Hugo theme created using Bootstrap.
+
+- **Minimal Design**: Clean black & white aesthetic focused on content
+- **Responsive**: Mobile-first design that works on all devices
+- **Accessible**: WCAG compliant with high contrast and keyboard navigation
+- **Fast**: Optimized for performance with minimal CSS and JavaScript
+- **SEO Optimized**: Comprehensive structured data and meta tags
+- **Dark Mode**: Automatic theme switching based on system preference
+
+## Documentation
+
+For comprehensive development documentation, see the [`docs/`](./docs/) directory:
+
+- **[Development Guide](./docs/README.md)**: Overview and quick start
+- **[Coding Standards](./docs/CODING_STANDARDS.md)**: Hugo template guidelines
+- **[Design System](./docs/DESIGN_SYSTEM.md)**: Visual design and components
+- **[Maintenance Guide](./docs/MAINTENANCE.md)**: Deployment and maintenance
 
 ## Configuration
 ```config.toml
