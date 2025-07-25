@@ -6,11 +6,18 @@
 
 ```
 layouts/
-├── default/           # Default page layouts
-│   ├── baseof.html   # Base template
-│   ├── single.html   # Single content pages
-│   ├── list.html     # List pages
-│   └── terms.html    # Taxonomy term pages
+├── baseof.html        # Base template
+├── index.html         # Home page layout
+├── posts/             # Blog posts layouts
+│   ├── single.html    # Individual post
+│   └── list.html      # Posts listing
+├── pages/             # Static pages layouts
+│   ├── single.html    # Individual page
+│   └── list.html      # Pages listing
+├── taxonomy/          # Taxonomy layouts
+│   ├── taxonomy.html  # Taxonomy list page
+│   ├── terms.html     # Terms listing
+│   └── term.html      # Individual term page
 ├── partials/          # Reusable template components
 │   ├── head/         # HTML head elements
 │   │   ├── css.html  # CSS loading
