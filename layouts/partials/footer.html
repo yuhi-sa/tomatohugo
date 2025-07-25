@@ -1,7 +1,54 @@
-<div class="container py-4">
+{{/*
+  Site Footer Component
+  
+  Clean, minimal footer with:
+  - Copyright information
+  - Optional additional footer content
+  - Semantic HTML structure
+  - Responsive design
+  
+  @context {Page} . The current page context
+  @returns {string} HTML footer content
+*/}}
+
+<div class="container footer-container">
   <div class="row justify-content-center">
-    <div class="col-md-6 text-center">
-      <p class="text-muted mb-0">Copyright &copy; {{ now.Year }}. All rights reserved.</p>
+    <div class="col-md-8 text-center">
+      
+      {{/* Copyright notice */}}
+      <p class="copyright-text text-muted mb-2">
+        &copy; {{ now.Year }} 
+        {{- with .Site.Params.author }}
+          {{ . }}
+        {{- else }}
+          {{ .Site.Title }}
+        {{- end }}.
+        All rights reserved.
+      </p>
+      
+      {{/* Optional footer message */}}
+      {{- with .Site.Params.footer_message }}
+      <p class="footer-message text-muted small mb-0">
+        {{ . | markdownify }}
+      </p>
+      {{- end }}
+      
+      {{/* Theme attribution (can be removed if desired) */}}
+      {{- if not .Site.Params.hide_theme_attribution }}
+      <p class="theme-attribution text-muted small mb-0">
+        Powered by 
+        <a href="https://gohugo.io/" 
+           target="_blank" 
+           rel="noopener"
+           class="text-decoration-none">Hugo</a>
+        with 
+        <a href="https://github.com/yuhi-sa/tomatohugo" 
+           target="_blank" 
+           rel="noopener"
+           class="text-decoration-none">TomatoHugo</a>
+      </p>
+      {{- end }}
+      
     </div>
   </div>
 </div>

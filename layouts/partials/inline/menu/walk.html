@@ -1,23 +1,75 @@
+{{/*
+  Recursive Menu Walker Component
+  
+  Recursively renders hierarchical navigation menu items with:
+  - Active/ancestor state detection
+  - Multi-level dropdown support
+  - Internationalization support
+  - Accessibility compliance
+  
+  @context {Page} .page The current page context
+  @context {[]MenuEntry} .menuEntries Array of menu entries to render
+  @returns {string} HTML list items for navigation
+*/}}
+
 {{- $page := .page }}
+
 {{- range .menuEntries }}
-  {{- $class := "nav-link" }}
-  {{- if $page.IsMenuCurrent .Menu . }}
-    {{- $class = printf "%s %s" $class "active" }}
-  {{- else if $page.HasMenuCurrent .Menu .}}
-    {{- $class = printf "%s %s" $class "ancestor" }}
+  {{- $menuEntry := . }}
+  {{- $isActive := $page.IsMenuCurrent .Menu . }}
+  {{- $isAncestor := $page.HasMenuCurrent .Menu . }}
+  {{- $hasChildren := .Children }}
+  
+  {{/* Build CSS classes for menu item state */}}
+  {{- $linkClasses := "nav-link" }}
+  {{- if $isActive }}
+    {{- $linkClasses = printf "%s active" $linkClasses }}
+  {{- else if $isAncestor }}
+    {{- $linkClasses = printf "%s ancestor" $linkClasses }}
   {{- end }}
-  {{- $name := .Name }}
+  
+  {{/* Get menu item name with i18n support */}}
+  {{- $menuName := .Name }}
   {{- with .Identifier }}
     {{- with T . }}
-      {{- $name = . }}
+      {{- $menuName = . }}
     {{- end }}
   {{- end }}
-  <li class="nav-item mx-2">
-    <a class="{{ $class }}" href="{{ .URL | absURL }}">{{ $name }}</a>
-    {{- with .Children }}
-      <ul class="navbar-nav ms-3">
-        {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
+  
+  {{/* Menu item container */}}
+  <li class="nav-item{{ if $hasChildren }} dropdown{{ end }}" role="none">
+    
+    {{/* Menu link */}}
+    {{- if $hasChildren }}
+      {{/* Dropdown menu trigger */}}
+      <a class="{{ $linkClasses }} dropdown-toggle" 
+         href="#" 
+         role="menuitem"
+         aria-haspopup="true"
+         aria-expanded="false"
+         data-bs-toggle="dropdown"
+         id="navbarDropdown{{ .Identifier | default .Name | urlize }}"
+         aria-label="Open {{ $menuName }} submenu">
+        {{ $menuName }}
+      </a>
+      
+      {{/* Dropdown submenu */}}
+      <ul class="dropdown-menu" 
+          aria-labelledby="navbarDropdown{{ .Identifier | default .Name | urlize }}"
+          role="menu">
+        {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .Children) }}
       </ul>
+      
+    {{- else }}
+      {{/* Regular menu link */}}
+      <a class="{{ $linkClasses }}" 
+         href="{{ .URL | absURL }}"
+         role="menuitem"
+         {{- if $isActive }} aria-current="page"{{ end }}
+         aria-label="Navigate to {{ $menuName }}">
+        {{ $menuName }}
+      </a>
     {{- end }}
+    
   </li>
 {{- end }}
