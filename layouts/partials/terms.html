@@ -17,6 +17,7 @@
 {{- $page := .page }}
 {{- $taxonomy := .taxonomy }}
 {{- $customClass := .class | default "" }}
+{{- $siteTaxonomy := index $page.Site.Taxonomies $taxonomy }}
 
 {{- with $page.GetTerms $taxonomy }}
   {{- $taxonomyLabel := (index . 0).Parent.LinkTitle }}
@@ -35,12 +36,15 @@
         aria-labelledby="terms-{{ $taxonomy }}"
         aria-describedby="terms-count-{{ $taxonomy }}">
       {{- range . }}
+      {{- $termKey := .LinkTitle | urlize }}
+      {{- $termPages := index $siteTaxonomy $termKey }}
+      {{- $count := len $termPages.Pages }}
       <li class="terms-item" role="listitem">
         <a href="{{ .RelPermalink }}" 
            class="terms-link badge badge-custom text-decoration-none"
            rel="tag"
            aria-label="View all posts tagged with {{ .LinkTitle }}"
-           title="{{ .LinkTitle }} ({{ .Count }} {{ if eq .Count 1 }}post{{ else }}posts{{ end }})">
+           title="{{ .LinkTitle }} ({{ $count }} {{ if eq $count 1 }}post{{ else }}posts{{ end }})">
           {{ .LinkTitle }}
         </a>
       </li>

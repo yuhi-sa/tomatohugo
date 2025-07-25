@@ -86,7 +86,9 @@
   <!-- Navigation -->
   <nav class="article-navigation" aria-label="Article navigation">
     {{ partial "breadcrumbs.html" . }}
-    {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+    {{- if .Params.tags }}
+      {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+    {{- end }}
   </nav>
 </div>
 {{ end }}
