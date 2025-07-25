@@ -77,8 +77,3 @@ paginate = 5
 # Set the number of items to display per page in pagination.
 ```
 - [sample setting](https://github.com/yuhi-sa/blog.com/blob/main/config.toml)
-
-## Image
-![sampleImage1](./data/sample1.png)
-![sampleImage2](./data/sample2.png)
-![sampleImage3](./data/sample3.png)
