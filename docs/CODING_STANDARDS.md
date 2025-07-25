@@ -6,7 +6,7 @@
 
 ```
 layouts/
-├── _default/          # Default page layouts
+├── default/           # Default page layouts
 │   ├── baseof.html   # Base template
 │   ├── single.html   # Single content pages
 │   ├── list.html     # List pages

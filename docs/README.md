@@ -74,7 +74,7 @@ docs/
 ### Template Structure
 ```
 layouts/
-├── _default/          # Core page templates
+├── default/          # Core page templates
 ├── partials/          # Reusable components
 │   ├── head/         # HTML head management
 │   ├── ads/          # Advertisement integration
