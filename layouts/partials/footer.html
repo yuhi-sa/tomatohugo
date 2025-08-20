@@ -1,17 +1,4 @@
-{{/*
-  Site Footer Component
-  
-  Clean, minimal footer with:
-  - Copyright information
-  - Optional additional footer content
-  - Semantic HTML structure
-  - Responsive design
-  
-  @context {Page} . The current page context
-  @returns {string} HTML footer content
-*/}}
-
-<div class="container footer-container">
+<div class="container py-5">
   <div class="row justify-content-center">
     <div class="col-md-8 text-center">
       
@@ -35,7 +22,7 @@
       
       {{/* Theme attribution (can be removed if desired) */}}
       {{- if not .Site.Params.hide_theme_attribution }}
-      <p class="theme-attribution text-muted small mb-0">
+      <p class="theme-attribution text-muted small mt-2 mb-0">
         Powered by 
         <a href="https://gohugo.io/" 
            target="_blank" 
