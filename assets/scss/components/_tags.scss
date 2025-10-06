@@ -1,0 +1,37 @@
+/*--------------------------------------------------------------
+# Tags Component
+--------------------------------------------------------------*/
+
+/**
+ * Styles for the tag list used in sidebars or dedicated tag pages.
+ */
+.tag-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-6) 0;
+
+  &__item {
+    margin-bottom: var(--space-2);
+  }
+
+  &__link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--text-base);
+    padding: var(--space-2) 0;
+    display: inline-block;
+    border-bottom: 1px dotted var(--border-light);
+    transition: color var(--transition-fast);
+
+    &:hover {
+      color: var(--text-primary);
+      border-bottom-color: var(--text-primary);
+    }
+  }
+
+  &__count {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    margin-left: var(--space-2);
+  }
+}

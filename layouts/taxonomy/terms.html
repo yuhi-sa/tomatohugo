@@ -1,7 +1,7 @@
 {{ define "main" }}
 <div class="container">
-  <article>
-    <header class="article-header">
+  <article class="article">
+    <header class="article__header">
       {{ if eq .Data.Singular "tag" }}
         <h1>すべてのタグ</h1>
       {{ else if eq .Data.Singular "category" }}
@@ -11,12 +11,12 @@
       {{ end }}
     </header>
 
-    <div class="article-content">
+    <div class="article__content">
       <ul class="tag-list">
         {{ range .Data.Terms.Alphabetical }}
-        <li>
-          <a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a>
-          <span class="tag-count">({{ .Count }})</span>
+        <li class="tag-list__item">
+          <a href="{{ .Page.Permalink }}" class="tag-list__link">{{ .Page.Title }}</a>
+          <span class="tag-list__count">({{ .Count }})</span>
         </li>
         {{ end }}
       </ul>

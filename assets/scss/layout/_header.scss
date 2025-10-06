@@ -1,0 +1,41 @@
+/*--------------------------------------------------------------
+# Layout: Site Header / Navbar
+--------------------------------------------------------------*/
+
+/**
+ * Custom styles for the main navigation bar.
+ * Uses CSS variables to automatically adapt to light/dark themes.
+ */
+.navbar-custom {
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-light);
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
+
+  // Styling for brand and navigation links
+  .navbar-brand,
+  .nav-link {
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+
+    &:hover,
+    &:focus,
+    &.active {
+      color: var(--text-primary);
+    }
+  }
+
+  // Styling for the mobile navigation toggle button
+  .navbar-toggler {
+    color: var(--text-secondary);
+    border-color: var(--border-light);
+  }
+
+  // Customizing the toggler icon to use theme colors
+  .navbar-toggler-icon {
+    // The default Bootstrap icon is an SVG. We can't easily color it with CSS `color`.
+    // Instead, we can create a themed SVG using our CSS variables.
+    // However, since we are using Font Awesome icons, this part is less critical
+    // but good for robustness. For simplicity, we will rely on the Font Awesome icon
+    // and ensure its color is set correctly.
+  }
+}

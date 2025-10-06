@@ -1,1 +1,36 @@
-{{ define "main" }}<div class="container">  <article>    <header class="article-header">      {{ if eq .Data.Singular "tag" }}        <h1>タグ: {{ .Title }}</h1>      {{ else if eq .Data.Singular "category" }}        <h1>カテゴリ: {{ .Title }}</h1>      {{ else }}        <h1>{{ .Title }}</h1>      {{ end }}      <div class="article-meta">        <span>{{ .Pages | len }}件の記事</span>      </div>    </header>    <div class="article-content">      {{ if .Content }}        {{ .Content }}      {{ end }}      <div class="articles-grid">        {{ range .Pages }}        <div class="article-card">          <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>          {{ if .Date }}          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006年1月2日" }}</time>          {{ end }}          {{ if .Summary }}          <p>{{ .Summary }}</p>          {{ end }}        </div>        {{ end }}      </div>    </div>  </article></div>{{ end }}
+{{ define "main" }}
+<div class="container">
+  <section itemscope itemtype="https://schema.org/CollectionPage">
+    <header class="page-header text-center">
+      {{ if eq .Data.Singular "tag" }}
+        <h1 itemprop="name">タグ: {{ .Title }}</h1>
+      {{ else if eq .Data.Singular "category" }}
+        <h1 itemprop="name">カテゴリ: {{ .Title }}</h1>
+      {{ else }}
+        <h1 itemprop="name">{{ .Title }}</h1>
+      {{ end }}
+
+      {{ if .Content }}
+      <div class="page-description lead" itemprop="description">
+        {{ .Content }}
+      </div>
+      {{ end }}
+
+      <p class="page-count text-muted">
+        {{ len .Pages }} {{ if eq (len .Pages) 1 }}article{{ else }}articles{{ end }}
+      </p>
+    </header>
+
+    <div class="articles-grid" role="main" aria-label="Articles in {{ .Title }}">
+      <div class="row">
+        {{ range .Pages }}
+        <div class="col-md-6 col-lg-4 mb-4 d-flex">
+          {{/* Call the reusable article card partial */}}
+          {{ partial "article-card.html" . }}
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+</div>
+{{ end }}

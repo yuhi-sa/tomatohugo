@@ -2,18 +2,18 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
     <div class="col-lg-8">
-      <article itemscope itemtype="https://schema.org/Article">
+      <article class="article" itemscope itemtype="https://schema.org/Article">
         <!-- Article Header -->
-        <header class="article-header">
+        <header class="article__header">
           <h1 itemprop="headline">{{ .Title }}</h1>
 
           {{ if .Params.description }}
-          <p class="lead article-description" itemprop="description">
+          <p class="lead article__description" itemprop="description">
             {{ .Params.description }}
           </p>
           {{ end }}
 
-          <div class="article-meta">
+          <div class="article__meta">
             <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" itemprop="datePublished">
               <i class="far fa-calendar-alt me-1" aria-hidden="true"></i>
               {{ .Date.Format "January 2, 2006" }}
@@ -40,24 +40,11 @@
             </span>
             {{ end }}
           </div>
-
-          {{ with .Params.tags }}
-          <div class="article-tags" role="group" aria-label="Article tags">
-            {{ range . }}
-            <a href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}"
-               class="badge badge-custom text-decoration-none me-1"
-               rel="tag"
-               itemprop="keywords">
-              {{ . }}
-            </a>
-            {{ end }}
-          </div>
-          {{ end }}
         </header>
         
         <!-- Featured Image -->
         {{ with .Params.images }}
-        <figure class="article-image text-center my-4">
+        <figure class="article__image text-center my-4">
           <img src="{{ index . 0 | absURL }}"
                class="img-fluid rounded"
                alt="{{ $.Params.image_alt | default $.Title }}"
@@ -72,13 +59,23 @@
         {{ end }}
         
         <!-- Article Content -->
-        <div class="article-content" itemprop="articleBody">
+        <div class="article__content" itemprop="articleBody">
           {{ .Content }}
         </div>
         
         <!-- Article Footer -->
-        <footer class="article-footer">
-          <!-- Sharing removed as requested -->
+        <footer class="article__footer">
+          {{ with .Params.tags }}
+          <div class="article__tags" role="group" aria-label="Article tags">
+            {{ range . }}
+            <a href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}"
+               rel="tag"
+               itemprop="keywords">
+              {{ . }}
+            </a>
+            {{ end }}
+          </div>
+          {{ end }}
         </footer>
 
         <!-- Schema.org Metadata -->
@@ -87,7 +84,7 @@
       </article>
       
       <!-- Navigation -->
-      <nav class="article-navigation mt-5" aria-label="Article navigation">
+      <nav class="article__navigation mt-5" aria-label="Article navigation">
         {{ partial "breadcrumbs.html" . }}
         {{- if .Params.tags }}
           {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}

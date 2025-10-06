@@ -1,0 +1,94 @@
+/*--------------------------------------------------------------
+# Component: Article Card
+--------------------------------------------------------------*/
+
+/**
+ * Styles for the article card component used in lists.
+ * Follows BEM naming conventions.
+ */
+.article-card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensures cards in a grid have the same height */
+  transition: all var(--transition-fast);
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  &__body {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allows the body to fill the card */
+  }
+
+  &__header {
+    margin-bottom: var(--space-4);
+  }
+
+  &__title {
+    color: var(--text-primary);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    margin: 0;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      &::after { /* Extends link to cover the whole card */
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+  }
+
+  &__meta {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    margin-top: var(--space-2);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  &__excerpt {
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+    margin-top: var(--space-4);
+    flex-grow: 1; /* Pushes the footer to the bottom */
+  }
+
+  &__tags {
+    margin-top: var(--space-4);
+
+    a {
+      display: inline-block;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: var(--text-sm);
+      margin-right: var(--space-3);
+      margin-bottom: var(--space-2);
+      padding: var(--space-1) 0;
+      border-bottom: 1px dotted var(--border-light);
+      transition: color var(--transition-fast);
+
+      &:hover {
+        color: var(--text-primary);
+      }
+    }
+  }
+
+  &__footer {
+    margin-top: var(--space-6);
+  }
+}

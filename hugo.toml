@@ -1,0 +1,35 @@
+# Hugo configuration file
+baseURL = "https://example.org/"
+languageCode = "ja"
+title = "モダンなHugoブログ"
+enableRobotsTXT = true
+
+# Theme-specific parameters
+[params]
+  description = "モダンで、レスポンシブ対応、アクセシブルなHugoブログテーマ"
+  defaultTheme = "light" # can be "light" or "dark"
+  mainSections = ["posts"]
+
+# Pagination
+paginate = 10
+
+# Main menu navigation
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "Posts"
+    url = "/posts"
+    weight = 2
+  [[menu.main]]
+    name = "About"
+    url = "/about"
+    weight = 3
+
+# Taxonomies
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  author = "authors"

@@ -29,6 +29,51 @@ chore(deps): update Hugo version requirement
 - [ ] Cross-browser testing completed
 - [ ] Mobile responsiveness tested
 
+## Theme Architecture & Frontend Development
+
+This theme has been refactored to follow a modern, component-based architecture. The goal is to improve maintainability, scalability, and developer experience.
+
+### SCSS Structure
+
+All theme styles are written in SCSS and located in the `assets/scss/` directory. The structure is organized as follows:
+
+- **`main.scss`**: The main entry point. It imports all other SCSS partials in the correct order. **Do not write styles directly in this file.**
+- **`_variables.scss`**: Contains all CSS Custom Properties (variables) for colors, typography, spacing, etc. This is the single source of truth for design tokens, aligned with `docs/DESIGN_SYSTEM.md`.
+- **`_syntax.scss`**: Styles for code syntax highlighting.
+- **`base/`**: Global styles. Includes resets, base typography for `<body>`, etc.
+- **`components/`**: Styles for individual, reusable UI components (e.g., `_article-card.scss`, `_pagination.scss`). Each component has its own file.
+- **`layout/`**: Styles for major layout sections of the site, such as the header (`_header.scss`) and article layout (`_article.scss`).
+- **`vendors/`**: Styles that override third-party libraries (e.g., `_bootstrap.scss`).
+
+### BEM Naming Convention
+
+Component styles use the **Block, Element, Modifier (BEM)** naming convention to ensure styles are scoped, specific, and self-documenting.
+
+- **Block**: The top-level component (e.g., `.article-card`).
+- **Element**: A part of the block (e.g., `.article-card__title`).
+- **Modifier**: A variation of the block (e.g., `.article-card--featured`).
+
+For detailed component design guidelines, refer to `docs/DESIGN_SYSTEM.md`.
+
+### Dark Mode Implementation
+
+The dark mode is implemented purely with CSS, providing a clean separation of concerns.
+
+- **Trigger**: The `assets/js/dark-mode.js` script is responsible **only** for toggling the `data-theme="dark"` attribute on the `<html>` element. It listens for user clicks and system theme preferences.
+- **Styling**: All dark mode color changes are handled in `assets/scss/_variables.scss` within the `[data-theme="dark"]` selector. It overrides the default light-theme CSS variables.
+
+**To modify theme colors, edit `_variables.scss`. Do not add theme-switching logic to JavaScript.**
+
+### Adding or Modifying Styles
+
+1.  **Identify the Scope**: Is it a new component, a change to an existing layout, or a global style?
+2.  **Create/Find the File**:
+    - For a new component, create a new file in `assets/scss/components/` (e.g., `_my-component.scss`).
+    - For an existing component, open its corresponding file.
+3.  **Write the SCSS**: Use BEM and the variables defined in `_variables.scss`.
+4.  **Import the File**: If you created a new file, import it into `main.scss` in the appropriate section.
+5.  **Update HTML**: Apply the new BEM classes to your Hugo templates in the `layouts/` directory.
+
 #### 2. Version Numbering
 Follow [Semantic Versioning](https://semver.org/):
 - **MAJOR**: Breaking changes

@@ -1,58 +1,54 @@
 {{/*
   Breadcrumb Navigation Component
   
-  Displays hierarchical navigation breadcrumbs with:
-  - Schema.org structured data for SEO
-  - Accessibility support (ARIA labels, keyboard navigation)
-  - Responsive design for mobile/desktop
+  Displays hierarchical navigation breadcrumbs for the current page.
+  - Generates a breadcrumb trail from the homepage to the current page.
+  - Includes Schema.org structured data for enhanced SEO.
+  - Uses BEM class names for maintainable and themeable styling.
   
-  @context {Page} . The current page context
-  @returns {string} HTML breadcrumb navigation
+  @context {Page} . The current page context.
+  @returns {string} HTML <nav> element containing the breadcrumb list.
 */}}
 
-<nav aria-label="Breadcrumb navigation" class="breadcrumb-nav" role="navigation">
-  <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<nav aria-label="Breadcrumb navigation" role="navigation">
+  {{/* The <ol> element represents the list of breadcrumbs.
+       itemscope and itemtype define it as a Schema.org BreadcrumbList. */}}
+  <ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
     
-    {{/* Home breadcrumb item - always present */}}
-    <li class="breadcrumb-item" 
-        itemprop="itemListElement" 
-        itemscope 
-        itemtype="https://schema.org/ListItem">
-      <a href="{{ "/" | relLangURL }}" 
-         itemprop="item"
-         aria-label="Navigate to homepage">
+    {{/* Step 1: Always add the "Home" breadcrumb as the first item.
+         It's the root of the navigation trail. The position is hardcoded to 1. */}}
+    <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a href="{{ "/" | relLangURL }}" class="breadcrumbs__link" itemprop="item" aria-label="Navigate to homepage">
         <i class="fas fa-home" aria-hidden="true"></i>
         <span itemprop="name">{{ .Site.Title | default "Home" }}</span>
       </a>
       <meta itemprop="position" content="1" />
     </li>
     
-    {{/* Ancestor breadcrumb items - section/taxonomy pages */}}
+    {{/* Step 2: If the current page is not the homepage, generate the trail. */}}
     {{- if not .IsHome }}
+      {{/* Loop through the page's ancestors (e.g., sections).
+           .Ancestors provides the path from the content root. We .Reverse it to get the
+           correct order from Home -> Section -> Sub-section. */}}
       {{- range $index, $ancestor := .Ancestors.Reverse }}
         {{- if and $ancestor.Title (ne $ancestor.Title "") }}
-        <li class="breadcrumb-item" 
-            itemprop="itemListElement" 
-            itemscope 
-            itemtype="https://schema.org/ListItem">
-          <a href="{{ $ancestor.Permalink }}" 
-             itemprop="item"
-             aria-label="Navigate to {{ $ancestor.Title }}">
+        <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="{{ $ancestor.Permalink }}" class="breadcrumbs__link" itemprop="item" aria-label="Navigate to {{ $ancestor.Title }}">
             <span itemprop="name">{{ $ancestor.Title }}</span>
           </a>
+          {{/* The position starts from 2 because "Home" is 1.
+               We add the loop index to 2 to get the correct position. */}}
           <meta itemprop="position" content="{{ add $index 2 }}" />
         </li>
         {{- end }}
       {{- end }}
       
-      {{/* Current page breadcrumb item - not linked */}}
+      {{/* Step 3: Add the current page as the final item in the breadcrumb trail.
+           It is not a link, as it represents the page the user is currently on. */}}
       {{- with .Title }}
-      <li class="breadcrumb-item active" 
-          aria-current="page" 
-          itemprop="itemListElement" 
-          itemscope 
-          itemtype="https://schema.org/ListItem">
+      <li class="breadcrumbs__item" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
         <span itemprop="name">{{ . }}</span>
+        {{/* The final position is the number of ancestors + 2 (for Home and the current page itself). */}}
         <meta itemprop="position" content="{{ add (len $.Ancestors) 2 }}" />
       </li>
       {{- end }}
@@ -60,4 +56,3 @@
     
   </ol>
 </nav>
-  

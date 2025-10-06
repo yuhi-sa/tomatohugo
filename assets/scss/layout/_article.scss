@@ -1,0 +1,173 @@
+/*--------------------------------------------------------------
+# Article Layout
+--------------------------------------------------------------*/
+
+/**
+ * Styles for the main article container, header, and content area.
+ * Uses BEM naming for clarity.
+ */
+.article {
+  // Styles for the main article content area
+  &__content {
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+
+    h2,
+    h3,
+    h4 {
+      margin-top: var(--space-8);
+      margin-bottom: var(--space-4);
+      color: var(--text-primary);
+      font-weight: var(--font-semibold);
+    }
+
+    h2 {
+      font-size: var(--text-2xl);
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: var(--space-2);
+    }
+
+    h3 {
+      font-size: var(--text-xl);
+    }
+
+    h4 {
+      font-size: var(--text-lg);
+    }
+
+    p {
+      margin-bottom: var(--space-4);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-md);
+      margin: var(--space-6) 0;
+      border: 1px solid var(--border-light);
+    }
+
+    // Code Blocks
+    pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin: var(--space-6) 0;
+      overflow-x: auto;
+      font-family: var(--font-family-mono);
+      font-size: var(--text-sm);
+    }
+
+    code {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: var(--space-1) var(--space-2);
+      font-family: var(--font-family-mono);
+      font-size: var(--text-sm);
+    }
+
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    // Blockquotes
+    blockquote {
+      margin: var(--space-6) 0;
+      padding: var(--space-4) var(--space-6);
+      background: var(--bg-secondary);
+      border-left: 4px solid var(--text-primary);
+      border-radius: var(--radius-md);
+      font-style: italic;
+    }
+
+    // Tables
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-6) 0;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      padding: var(--space-3);
+      text-align: left;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    th {
+      background: var(--bg-secondary);
+      font-weight: var(--font-semibold);
+    }
+
+    // Lists
+    ul,
+    ol {
+      margin: var(--space-4) 0;
+      padding-left: var(--space-6);
+    }
+
+    li {
+      margin-bottom: var(--space-2);
+    }
+  }
+
+  // Styles for the article header section
+  &__header {
+    margin-bottom: var(--space-8);
+    text-align: center;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: var(--space-6);
+
+    h1 {
+      margin: 0 0 var(--space-4) 0;
+      font-size: var(--text-3xl); // Mobile-first font size
+      font-weight: var(--font-bold);
+      color: var(--text-primary);
+
+      // Per design system, increase font size on larger screens
+      @media (min-width: 768px) {
+        font-size: var(--text-4xl);
+      }
+    }
+  }
+
+  // Styles for the article metadata (date, author, etc.)
+  &__meta {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  // Styles for the article tags section
+  &__tags {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border-light);
+
+    a {
+      display: inline-block;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: var(--text-sm);
+      margin-right: var(--space-3);
+      margin-bottom: var(--space-2);
+      padding: var(--space-1) 0;
+      border-bottom: 1px dotted var(--border-light);
+      transition: color var(--transition-fast);
+
+      &:hover {
+        color: var(--text-primary);
+      }
+    }
+  }
+}

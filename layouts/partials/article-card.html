@@ -1,0 +1,49 @@
+{{/*
+  Article Card Component
+
+  Displays a summary of an article in a card format.
+  Designed to be used within a loop on list pages.
+
+  @context {Page} . The page context for the article to display.
+  @returns {string} HTML <article> element for the card.
+*/}}
+<article class="article-card h-100" itemscope itemtype="https://schema.org/Article">
+  <div class="article-card__body">
+    <header class="article-card__header">
+      <h2 class="article-card__title">
+        <a href="{{ .RelPermalink }}" itemprop="url">
+          <span itemprop="headline">{{ .LinkTitle }}</span>
+        </a>
+      </h2>
+
+      <div class="article-card__meta">
+        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" itemprop="datePublished">
+          <i class="far fa-calendar-alt" aria-hidden="true"></i>
+          {{ .Date.Format "Jan 2, 2006" }}
+        </time>
+
+        {{ if .ReadingTime }}
+        <span>
+          <i class="far fa-clock" aria-hidden="true"></i>
+          {{ .ReadingTime }} min read
+        </span>
+        {{ end }}
+      </div>
+    </header>
+
+    <div class="article-card__excerpt">
+      <p itemprop="description">{{ .Summary | plainify | truncate 120 "..." }}</p>
+    </div>
+
+    <footer class="article-card__footer">
+      {{ with .Params.tags }}
+      <div class="article-card__tags">
+        {{ range first 3 . }}
+        <a href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}" rel="tag" itemprop="keywords">{{ . }}</a>
+        {{ end }}
+      </div>
+      {{ end }}
+    </footer>
+  </div>
+  <meta itemprop="url" content="{{ .Permalink }}">
+</article>

@@ -1,0 +1,68 @@
+/*--------------------------------------------------------------
+# Vendor Overrides: Bootstrap
+--------------------------------------------------------------*/
+
+/**
+ * Overrides for Bootstrap components to align with the theme's design system.
+ */
+
+// Override Bootstrap's default theme colors for backgrounds
+.bg-light {
+  background-color: var(--bg-primary) !important;
+}
+
+// Navbar styles to match the current theme
+.navbar-light {
+  .navbar-brand,
+  .navbar-nav .nav-link {
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+
+    &:hover,
+    &.active {
+      color: var(--text-primary);
+    }
+  }
+}
+
+.navbar-toggler {
+  border-color: var(--border-light);
+
+  // The original file mentioned using font-awesome, so we remove the default icon.
+  .navbar-toggler-icon {
+    background-image: none;
+  }
+}
+
+// Custom card styles to match the theme
+.card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md); // Using design system variable
+
+  &__title a {
+    color: var(--text-primary);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__text {
+    color: var(--text-secondary);
+  }
+
+  &__meta {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+}
+
+// Custom badge style
+.badge.badge-custom {
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+  background-color: transparent;
+  font-weight: var(--font-normal); // Use design system variable
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo on モダンなHugoブログ</title>
+    <link>http://localhost:1313/tags/hugo/</link>
+    <description>Recent content in Hugo on モダンなHugoブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 06 Oct 2025 08:10:00 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>初めての投稿：モダンなHugoテーマの紹介</title>
+      <link>http://localhost:1313/posts/my-first-post/</link>
+      <pubDate>Mon, 06 Oct 2025 08:10:00 +0900</pubDate>
+      <guid>http://localhost:1313/posts/my-first-post/</guid>
+      <description>これは、新しいHugoテーマのテスト用サンプル記事です。&#xA;モダンなデザイン このテーマは、シンプルさと可読性を重視して設計されています。十分な余白、洗練されたタイポグラフィ、そしてレスポンシブデザインにより、どのデバイスでも快適な読書体験を提供します。&#xA;主な特徴 SCSSによる構造化: スタイルシートは、メンテナンス性を考慮してコンポーネントごとに分割されています。 BEM命名規則: CSSのクラス名はBEMに基づいており、予測可能で堅牢です。 ダークモード: ボタン一つでライトモードとダークモードを切り替えられます。 今後、このテーマを使って素晴らしいブログを構築していくのが楽しみです。</description>
+    </item>
+  </channel>
+</rss>

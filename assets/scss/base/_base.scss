@@ -1,0 +1,31 @@
+/*--------------------------------------------------------------
+# Base Styles
+--------------------------------------------------------------*/
+
+/**
+ * 1. Set box-sizing globally for easier layout calculations.
+ * 2. Remove default margin and padding for a clean slate.
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* 1 */
+}
+
+/**
+ * 1. Use a modern, system-ui font stack for optimal performance and legibility.
+ * 2. Set a base font size and line height for vertical rhythm.
+ * 3. Define default text and background colors from the design system.
+ * 4. Ensure smooth font rendering.
+ */
+body {
+  font-family: var(--font-family-sans); /* 1 */
+  font-size: var(--text-base); /* 2 */
+  line-height: var(--leading-normal); /* 2 */
+  color: var(--text-secondary); /* 3 */
+  background-color: var(--bg-primary); /* 3 */
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased; /* 4 */
+  -moz-osx-font-smoothing: grayscale; /* 4 */
+}

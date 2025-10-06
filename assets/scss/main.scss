@@ -1,0 +1,40 @@
+/*--------------------------------------------------------------
+# TomatoHugo Theme
+#
+# @version 2.0.0
+# @author Jules
+#
+# This file is the main entry point for all SCSS files.
+# It imports all the partials in the correct order to be
+# compiled into a single CSS file.
+--------------------------------------------------------------*/
+
+// 1. Configuration and helpers
+// (No files in this category yet)
+
+// 2. Vendor libraries
+@import "vendors/bootstrap";
+
+// 3. Base styles
+@import "base/base";
+@import "variables"; // Design system variables
+@import "syntax";    // Syntax highlighting styles
+
+// 4. Layout styles
+@import "layout/header";
+@import "layout/article";
+
+// 5. Component styles
+@import "components/article-card";
+@import "components/breadcrumbs";
+@import "components/pagination";
+@import "components/tags";
+
+// 6. Page-specific styles
+// (No files in this category yet)
+
+// 7. Themes
+// (Handled via CSS variables in _variables.scss)
+
+// 8. Utilities
+// (No files in this category yet)

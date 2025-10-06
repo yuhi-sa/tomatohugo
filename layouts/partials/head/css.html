@@ -32,46 +32,24 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
       crossorigin="anonymous">
 
-{{/* Theme CSS Resources */}}
-{{- $cssResources := slice }}
+{{/* Theme SCSS/CSS Processing */}}
+{{- $style := resources.Get "scss/main.scss" | toCSS -}}
+{{- $relPermalink := $style.RelPermalink -}}
+{{- $integrity := "" -}}
 
-{{/* Core CSS files in order of dependency */}}
-{{- $variablesCSS := resources.Get "css/variables.css" }}
-{{- $mainCSS := resources.Get "css/main.css" }}
-{{- $syntaxCSS := resources.Get "css/syntax.css" }}
+{{- if eq hugo.Environment "production" -}}
+  {{- with $style | minify | fingerprint -}}
+    {{- $relPermalink = .RelPermalink -}}
+    {{- $integrity = .Data.Integrity -}}
+  {{- end -}}
+{{- end -}}
 
-{{- if $variablesCSS }}
-  {{- $cssResources = $cssResources | append $variablesCSS }}
-{{- end }}
-
-{{- if $mainCSS }}
-  {{- $cssResources = $cssResources | append $mainCSS }}
-{{- end }}
-
-{{- if $syntaxCSS }}
-  {{- $cssResources = $cssResources | append $syntaxCSS }}
-{{- end }}
-
-{{/* Process and optimize CSS resources */}}
-{{- range $css := $cssResources }}
-  {{- $relPermalink := $css.RelPermalink }}
-  {{- $integrity := "" }}
-  
-  {{/* Production optimizations */}}
-  {{- if eq hugo.Environment "production" }}
-    {{- with $css | minify | fingerprint }}
-      {{- $relPermalink = .RelPermalink }}
-      {{- $integrity = .Data.Integrity }}
-    {{- end }}
-  {{- end }}
-
-  <link rel="stylesheet" 
-        href="{{ $relPermalink }}"
-        {{- if $integrity }} 
-        integrity="{{ $integrity }}" 
-        crossorigin="anonymous"
-        {{- end }}>
-{{- end }}
+<link rel="stylesheet"
+      href="{{ $relPermalink }}"
+      {{- if $integrity }}
+      integrity="{{ $integrity }}"
+      crossorigin="anonymous"
+      {{- end }}>
 
 {{/* Critical CSS inlining for above-the-fold content */}}
 {{- if eq hugo.Environment "production" }}
