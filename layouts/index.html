@@ -2,7 +2,6 @@
 <div class="container mt-4">
   <section itemscope itemtype="https://schema.org/Blog">
     <header class="page-header text-center">
-      <!-- DEBUG: Rendered from layouts/index.html -->
       <h1 itemprop="name">Latest Articles</h1>
       {{ if .Content }}
       <div class="page-description lead" itemprop="description">
@@ -24,8 +23,8 @@
     </div>
 
     {{ if gt .Paginator.TotalPages 1 }}
-    <nav aria-label="Blog pagination" class="mt-5">
-      {{ partial "components/pagination.html" . }}
+    <nav aria-label="Blog pagination" class="mt-5 d-flex justify-content-center">
+      {{ template "_internal/pagination.html" . }}
     </nav>
     {{ end }}
   </section>
