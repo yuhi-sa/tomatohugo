@@ -1,0 +1,54 @@
+.bg-light {
+    background-color: var(--bg-primary) !important;
+}
+
+.navbar-light .navbar-brand,
+.navbar-light .navbar-nav .nav-link {
+    color: var(--text-secondary);
+}
+
+.navbar-light .navbar-brand:hover,
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active {
+    color: var(--text-primary);
+}
+
+.navbar-toggler {
+    border-color: var(--border-light);
+}
+
+.navbar-toggler-icon {
+    background-image: none; /* We will use font-awesome or custom icon instead if needed */
+    /* For now, let's rely on font awesome which is already included */
+}
+
+/* Custom card styles to match the theme */
+.card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-light);
+}
+
+.card-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.card-title a:hover {
+    text-decoration: underline;
+}
+
+.card-text {
+    color: var(--text-secondary);
+}
+
+.card-meta {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+}
+
+.badge.badge-custom {
+    color: var(--text-secondary);
+    border: 1px solid var(--border-light);
+    background-color: transparent;
+    font-weight: normal;
+}

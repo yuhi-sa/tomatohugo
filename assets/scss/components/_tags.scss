@@ -1,0 +1,53 @@
+.tag-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-6) 0;
+}
+
+.tag-list li {
+  margin-bottom: var(--space-2);
+}
+
+.tag-list a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: var(--text-base);
+  padding: var(--space-2) 0;
+  display: inline-block;
+  border-bottom: 1px dotted var(--border-light);
+  transition: color var(--transition-fast);
+}
+
+.tag-list a:hover {
+  color: var(--text-primary);
+  border-bottom-color: var(--text-primary);
+}
+
+.tag-count {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  margin-left: var(--space-2);
+}
+
+/* Tags in articles */
+.article-tags {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-light);
+}
+
+.article-tags a {
+  display: inline-block;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  margin-right: var(--space-3);
+  margin-bottom: var(--space-2);
+  padding: var(--space-1) 0;
+  border-bottom: 1px dotted var(--border-light);
+  transition: color var(--transition-fast);
+}
+
+.article-tags a:hover {
+  color: var(--text-primary);
+}

@@ -2,6 +2,7 @@
   CSS Resources Loading Component
   
   Optimized CSS loading with:
+  - SCSS compilation via Hugo Pipes
   - Performance optimizations (preload, minification)
   - Font loading strategies
   - External dependency management
@@ -32,34 +33,29 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
       crossorigin="anonymous">
 
-{{/* Theme CSS Resources */}}
-{{- $cssResources := slice }}
+{{/* Theme SCSS Compilation */}}
+{{- $scssOptions := dict "outputStyle" "compressed" }}
+{{- $styles := resources.Get "scss/main.scss" | toCSS $scssOptions }}
 
-{{/* Core CSS files in order of dependency */}}
-{{- $variablesCSS := resources.Get "css/variables.css" }}
-{{- $mainCSS := resources.Get "css/main.css" }}
+{{- if eq hugo.Environment "production" }}
+  {{- $styles = $styles | minify | fingerprint }}
+{{- end }}
+
+<link rel="stylesheet"
+      href="{{ $styles.RelPermalink }}"
+      {{- if eq hugo.Environment "production" }}
+      integrity="{{ $styles.Data.Integrity }}"
+      crossorigin="anonymous"
+      {{- end }}>
+
+{{/* Syntax Highlighting CSS */}}
 {{- $syntaxCSS := resources.Get "css/syntax.css" }}
-
-{{- if $variablesCSS }}
-  {{- $cssResources = $cssResources | append $variablesCSS }}
-{{- end }}
-
-{{- if $mainCSS }}
-  {{- $cssResources = $cssResources | append $mainCSS }}
-{{- end }}
-
 {{- if $syntaxCSS }}
-  {{- $cssResources = $cssResources | append $syntaxCSS }}
-{{- end }}
-
-{{/* Process and optimize CSS resources */}}
-{{- range $css := $cssResources }}
-  {{- $relPermalink := $css.RelPermalink }}
+  {{- $relPermalink := $syntaxCSS.RelPermalink }}
   {{- $integrity := "" }}
   
-  {{/* Production optimizations */}}
   {{- if eq hugo.Environment "production" }}
-    {{- with $css | minify | fingerprint }}
+    {{- with $syntaxCSS | minify | fingerprint }}
       {{- $relPermalink = .RelPermalink }}
       {{- $integrity = .Data.Integrity }}
     {{- end }}
