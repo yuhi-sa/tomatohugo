@@ -1,0 +1,42 @@
+{{/*
+  Article Metadata Partial
+
+  Renders metadata for an article, such as publication date, author,
+  and reading time. This partial is designed to be reusable across
+  different templates (e.g., single articles, list items).
+
+  @context {Page} . The page context.
+  @returns {string} HTML representing the article metadata.
+*/}}
+
+<div class="article-meta">
+  {{/* Publication Date */}}
+  <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" itemprop="datePublished">
+    <i class="far fa-calendar-alt me-1" aria-hidden="true"></i>
+    {{ .Date.Format "January 2, 2006" }}
+  </time>
+
+  {{/* Last Modified Date */}}
+  {{ if ne .Date .Lastmod }}
+    <time datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" itemprop="dateModified" class="ms-3">
+      <i class="far fa-edit me-1" aria-hidden="true"></i>
+      Updated {{ .Lastmod.Format "January 2, 2006" }}
+    </time>
+  {{ end }}
+
+  {{/* Author */}}
+  {{ with .Params.author }}
+    <span itemprop="author" itemscope itemtype="https://schema.org/Person" class="ms-3">
+      <i class="far fa-user me-1" aria-hidden="true"></i>
+      <span itemprop="name">{{ . }}</span>
+    </span>
+  {{ end }}
+
+  {{/* Reading Time */}}
+  {{ if .ReadingTime }}
+    <span aria-label="Reading time" class="ms-3">
+      <i class="far fa-clock me-1" aria-hidden="true"></i>
+      {{ .ReadingTime }} min read
+    </span>
+  {{ end }}
+</div>
