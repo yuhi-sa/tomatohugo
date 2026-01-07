@@ -1,0 +1,19 @@
+{{/*
+  Article Header
+
+  Renders the main header for an article, including the title and an optional
+  description.
+
+  @context {Page} . A page object, usually the article page.
+  @returns {string} HTML content for the article header.
+  @example {{ partial "article/header.html" . }}
+*/}}
+<header class="article-header">
+  <h1 itemprop="headline">{{ .Title }}</h1>
+
+  {{ if .Params.description }}
+  <p class="lead article-description" itemprop="description">
+    {{ .Params.description }}
+  </p>
+  {{ end }}
+</header>

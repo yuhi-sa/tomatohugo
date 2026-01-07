@@ -1,0 +1,24 @@
+{{/*
+  Featured Image
+
+  Renders the featured image for an article, if one is specified in the
+  front matter. Includes schema.org metadata for SEO.
+
+  @context {Page} . A page object, usually the article page.
+  @returns {string} HTML content for the featured image.
+  @example {{ partial "article/featured-image.html" . }}
+*/}}
+{{ with .Params.images }}
+<figure class="article-image text-center my-4">
+  <img src="{{ index . 0 | absURL }}"
+       class="img-fluid rounded"
+       alt="{{ $.Params.image_alt | default $.Title }}"
+       itemprop="image"
+       loading="lazy"
+       width="{{ $.Params.image_width | default 1200 }}"
+       height="{{ $.Params.image_height | default 630 }}">
+  {{ if $.Params.image_caption }}
+  <figcaption class="text-muted small mt-2">{{ $.Params.image_caption }}</figcaption>
+  {{ end }}
+</figure>
+{{ end }}

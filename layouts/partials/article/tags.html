@@ -1,0 +1,22 @@
+{{/*
+  Article Tags
+
+  Renders the list of tags for a given article. Each tag is linked to its
+  corresponding taxonomy page.
+
+  @context {Page} . A page object, usually the article page.
+  @returns {string} HTML content for the article tags.
+  @example {{ partial "article/tags.html" . }}
+*/}}
+{{ with .Params.tags }}
+<div class="article-tags" role="group" aria-label="Article tags">
+  {{ range . }}
+  <a href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}"
+     class="badge badge-custom text-decoration-none me-1"
+     rel="tag"
+     itemprop="keywords">
+    {{ . }}
+  </a>
+  {{ end }}
+</div>
+{{ end }}
