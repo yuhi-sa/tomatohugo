@@ -13,63 +13,13 @@
           </p>
           {{ end }}
 
-          <div class="article-meta">
-            <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" itemprop="datePublished">
-              <i class="far fa-calendar-alt me-1" aria-hidden="true"></i>
-              {{ .Date.Format "January 2, 2006" }}
-            </time>
+          {{ partial "article/metadata.html" . }}
 
-            {{ if ne .Date .Lastmod }}
-            <time datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" itemprop="dateModified" class="ms-3">
-              <i class="far fa-edit me-1" aria-hidden="true"></i>
-              Updated {{ .Lastmod.Format "January 2, 2006" }}
-            </time>
-            {{ end }}
-
-            {{ with .Params.author }}
-            <span itemprop="author" itemscope itemtype="https://schema.org/Person" class="ms-3">
-              <i class="far fa-user me-1" aria-hidden="true"></i>
-              <span itemprop="name">{{ . }}</span>
-            </span>
-            {{ end }}
-
-            {{ if .ReadingTime }}
-            <span aria-label="Reading time" class="ms-3">
-              <i class="far fa-clock me-1" aria-hidden="true"></i>
-              {{ .ReadingTime }} min read
-            </span>
-            {{ end }}
-          </div>
-
-          {{ with .Params.tags }}
-          <div class="article-tags" role="group" aria-label="Article tags">
-            {{ range . }}
-            <a href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}"
-               class="badge badge-custom text-decoration-none me-1"
-               rel="tag"
-               itemprop="keywords">
-              {{ . }}
-            </a>
-            {{ end }}
-          </div>
-          {{ end }}
+          {{ partial "article/tags.html" . }}
         </header>
         
         <!-- Featured Image -->
-        {{ with .Params.images }}
-        <figure class="article-image text-center my-4">
-          <img src="{{ index . 0 | absURL }}"
-               class="img-fluid rounded"
-               alt="{{ $.Params.image_alt | default $.Title }}"
-               itemprop="image"
-               loading="lazy"
-               width="{{ $.Params.image_width | default 1200 }}"
-               height="{{ $.Params.image_height | default 630 }}">
-          {{ if $.Params.image_caption }}
-          <figcaption class="text-muted small mt-2">{{ $.Params.image_caption }}</figcaption>
-          {{ end }}
-        </figure>
-        {{ end }}
+        {{ partial "article/featured-image.html" . }}
         
         <!-- Article Content -->
         <div class="article-content" itemprop="articleBody">
