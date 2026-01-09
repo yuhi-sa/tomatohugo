@@ -1,0 +1,60 @@
+{{/*
+  Article Header Component
+
+  Renders the header section for a single article, including the title,
+  description, and metadata (publication date, author, reading time, tags).
+
+  @context {Page} . The page context of the article.
+  @returns {string} HTML representation of the article header.
+  @example {{ partial "article/header.html" . }}
+*/}}
+<header class="article-header">
+  <h1 itemprop="headline">{{ .Title }}</h1>
+
+  {{ if .Params.description }}
+  <p class="lead article-description" itemprop="description">
+    {{ .Params.description }}
+  </p>
+  {{ end }}
+
+  <div class="article-meta">
+    <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" itemprop="datePublished">
+      <i class="far fa-calendar-alt me-1" aria-hidden="true"></i>
+      {{ .Date.Format "January 2, 2006" }}
+    </time>
+
+    {{ if ne .Date .Lastmod }}
+    <time datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" itemprop="dateModified" class="ms-3">
+      <i class="far fa-edit me-1" aria-hidden="true"></i>
+      Updated {{ .Lastmod.Format "January 2, 2006" }}
+    </time>
+    {{ end }}
+
+    {{ with .Params.author }}
+    <span itemprop="author" itemscope itemtype="https://schema.org/Person" class="ms-3">
+      <i class="far fa-user me-1" aria-hidden="true"></i>
+      <span itemprop="name">{{ . }}</span>
+    </span>
+    {{ end }}
+
+    {{ if .ReadingTime }}
+    <span aria-label="Reading time" class="ms-3">
+      <i class="far fa-clock me-1" aria-hidden="true"></i>
+      {{ .ReadingTime }} min read
+    </span>
+    {{ end }}
+  </div>
+
+  {{ with .Params.tags }}
+  <div class="article-tags" role="group" aria-label="Article tags">
+    {{ range . }}
+    <a href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}"
+       class="badge badge-custom text-decoration-none me-1"
+       rel="tag"
+       itemprop="keywords">
+      {{ . }}
+    </a>
+    {{ end }}
+  </div>
+  {{ end }}
+</header>

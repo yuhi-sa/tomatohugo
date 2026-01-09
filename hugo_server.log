@@ -1,0 +1,30 @@
+port 1313 already in use, attempting to use an available port
+Watching for changes in /app/{archetypes,assets,content,layouts,static}
+Watching for config changes in /app/hugo.toml
+Start building sites …
+hugo v0.123.7+extended linux/amd64 BuildDate=2025-07-18T03:41:49Z VendorInfo=ubuntu:0.123.7-1ubuntu0.3
+
+
+                   | EN
+-------------------+-----
+  Pages            | 14
+  Paginator pages  |  0
+  Non-page files   |  0
+  Static files     |  1
+  Processed images |  0
+  Aliases          |  1
+  Cleaned          |  0
+
+Built in 28 ms
+Environment: "development"
+Serving pages from disk
+Running in Fast Render Mode. For full rebuilds on change: hugo server --disableFastRender
+Web Server is available at http://localhost:45741/ (bind address 127.0.0.1)
+Press Ctrl+C to stop
+
+Change of config file detected, rebuilding site (#1).
+2026-01-09 09:40:49.278 +0000
+Rebuilt in 32 ms
+ite (#2).
+2026-01-09 09:39:29.156 +0000
+Rebuilt in 46 ms

@@ -14,67 +14,7 @@
         
         <div role="main" aria-label="Blog posts">
           {{ range .Paginator.Pages }}
-          <article class="card mb-4" itemscope itemtype="https://schema.org/BlogPosting">
-            <div class="card-body">
-              <header class="article-header-condensed">
-                <h2 class="card-title h3">
-                  <a href="{{ .RelPermalink }}"
-                     itemprop="url"
-                     class="text-decoration-none">
-                    <span itemprop="headline">{{ .LinkTitle }}</span>
-                  </a>
-                </h2>
-                
-                <div class="card-meta text-muted">
-                  <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}"
-                        itemprop="datePublished">
-                    <i class="far fa-calendar-alt me-1" aria-hidden="true"></i>
-                    {{ .Date.Format "January 2, 2006" }}
-                  </time>
-
-                  {{ with .Params.author }}
-                  <span itemprop="author" itemscope itemtype="https://schema.org/Person" class="ms-3">
-                    <i class="far fa-user me-1" aria-hidden="true"></i>
-                    <span itemprop="name">{{ . }}</span>
-                  </span>
-                  {{ end }}
-
-                  {{ if .ReadingTime }}
-                  <span class="ms-3">
-                    <i class="far fa-clock me-1" aria-hidden="true"></i>
-                    {{ .ReadingTime }} min read
-                  </span>
-                  {{ end }}
-                </div>
-              </header>
-
-              <div class="card-text mt-3">
-                <p itemprop="description">{{ .Summary | plainify | truncate 150 "..." }}</p>
-              </div>
-
-              {{ with .Params.tags }}
-              <div class="mt-3">
-                {{ range . }}
-                <a href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}"
-                   class="badge badge-custom text-decoration-none me-1"
-                   rel="tag"
-                   itemprop="keywords">{{ . }}</a>
-                {{ end }}
-              </div>
-              {{ end }}
-            </div>
-
-            <footer class="card-footer bg-transparent border-0 text-end">
-              <a href="{{ .RelPermalink }}"
-                 class="btn btn-sm btn-outline-primary"
-                 aria-label="Read full article: {{ .LinkTitle }}">
-                Read More
-                <i class="fas fa-arrow-right ms-1" aria-hidden="true"></i>
-              </a>
-            </footer>
-
-            <meta itemprop="url" content="{{ .Permalink }}">
-          </article>
+            {{ partial "components/article-card.html" . }}
           {{ end }}
         </div>
         

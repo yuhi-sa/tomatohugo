@@ -18,7 +18,7 @@
       data-theme="{{ .Site.Params.defaultTheme | default "light" }}">
 
 <head>
-  {{ partial "head.html" . }}
+  {{ partial "layout/head.html" . }}
 </head>
 
 <body itemscope itemtype="https://schema.org/WebPage" class="theme-tomatohugo">
@@ -32,7 +32,7 @@
   
   {{/* Site header with navigation */}}
   <header role="banner" class="site-header">
-    {{ partial "header.html" . }}
+    {{ partial "layout/header.html" . }}
   </header>
   
   {{/* Main content area */}}
@@ -52,7 +52,7 @@
   
   {{/* Site footer */}}
   <footer role="contentinfo" class="site-footer">
-    {{ partial "footer.html" . }}
+    {{ partial "layout/footer.html" . }}
   </footer>
   
   {{/* Load JavaScript at the end for optimal performance */}}

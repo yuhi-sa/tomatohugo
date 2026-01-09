@@ -1,0 +1,25 @@
+{{/*
+  Article Footer Component
+
+  Renders the footer section of a single article, which includes navigation
+  elements like breadcrumbs and links to related tags.
+
+  @context {Page} . The page context of the article.
+  @returns {string} HTML representation of the article footer and navigation.
+  @example {{ partial "article/footer.html" . }}
+*/}}
+<footer class="article-footer">
+  <!-- Sharing removed as requested -->
+</footer>
+
+<!-- Schema.org Metadata -->
+<meta itemprop="wordCount" content="{{ .WordCount }}">
+<meta itemprop="url" content="{{ .Permalink }}">
+
+<!-- Navigation -->
+<nav class="article-navigation mt-5" aria-label="Article navigation">
+  {{ partial "navigation/breadcrumbs.html" . }}
+  {{- if .Params.tags }}
+    {{ partial "navigation/terms.html" (dict "taxonomy" "tags" "page" .) }}
+  {{- end }}
+</nav>
