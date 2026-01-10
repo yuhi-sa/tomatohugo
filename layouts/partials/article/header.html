@@ -1,0 +1,12 @@
+<header class="article-header">
+  <h1 itemprop="headline">{{ .Title }}</h1>
+
+  {{ if .Params.description }}
+  <p class="lead article-description" itemprop="description">
+    {{ .Params.description }}
+  </p>
+  {{ end }}
+
+  {{ partial "article/meta.html" . }}
+  {{ partial "article/tags.html" . }}
+</header>

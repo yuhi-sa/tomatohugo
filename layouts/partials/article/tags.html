@@ -1,0 +1,12 @@
+{{ with .Params.tags }}
+<div class="article-tags" role="group" aria-label="Article tags">
+  {{ range . }}
+  <a href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}"
+     class="badge badge-custom text-decoration-none me-1"
+     rel="tag"
+     itemprop="keywords">
+    {{ . }}
+  </a>
+  {{ end }}
+</div>
+{{ end }}

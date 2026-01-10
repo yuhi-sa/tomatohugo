@@ -1,0 +1,6 @@
+<nav class="article-navigation mt-5" aria-label="Article navigation">
+  {{ partial "breadcrumbs.html" . }}
+  {{- if .Params.tags }}
+    {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+  {{- end }}
+</nav>
