@@ -1,0 +1,46 @@
+{{/*
+  Article Summary Partial
+
+  Displays a condensed summary of an article for list pages.
+  Includes title, metadata, summary text, tags, and a "Read More" link.
+
+  @context {Page} . The page context of the article to summarize.
+  @returns {string} HTML representation of the article summary card.
+
+  @example
+  {{ range .Paginator.Pages }}
+    {{ partial "article/summary.html" . }}
+  {{ end }}
+*/}}
+<article class="card mb-4" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="card-body">
+    <header class="article-header-condensed">
+      <h2 class="card-title h3">
+        <a href="{{ .RelPermalink }}"
+           itemprop="url"
+           class="text-decoration-none">
+          <span itemprop="headline">{{ .LinkTitle }}</span>
+        </a>
+      </h2>
+
+      {{ partial "article/meta.html" . }}
+    </header>
+
+    <div class="card-text mt-3">
+      <p itemprop="description">{{ .Summary | plainify | truncate 150 "..." }}</p>
+    </div>
+
+    {{ partial "article/tags.html" . }}
+  </div>
+
+  <footer class="card-footer bg-transparent border-0 text-end">
+    <a href="{{ .RelPermalink }}"
+       class="btn btn-sm btn-outline-primary"
+       aria-label="Read full article: {{ .LinkTitle }}">
+      Read More
+      <i class="fas fa-arrow-right ms-1" aria-hidden="true"></i>
+    </a>
+  </footer>
+
+  <meta itemprop="url" content="{{ .Permalink }}">
+</article>
