@@ -112,6 +112,14 @@
 <link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
 {{- end }}
 
+{{/* Multilingual hreflang alternate links */}}
+{{- if .IsTranslated -}}
+  {{- range .Translations }}
+  <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
+  {{- end }}
+  <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
+{{- end }}
+
 {{/* Structured Data */}}
 {{ partial "schema.html" . }}
 
