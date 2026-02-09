@@ -1,1 +1,87 @@
-{{ define "main" }}<div class="container">  <article>    <header class="article-header">      {{ if eq .Data.Singular "tag" }}        <h1>タグ: {{ .Title }}</h1>      {{ else if eq .Data.Singular "category" }}        <h1>カテゴリ: {{ .Title }}</h1>      {{ else }}        <h1>{{ .Title }}</h1>      {{ end }}      <div class="article-meta">        <span>{{ .Pages | len }}件の記事</span>      </div>    </header>    <div class="article-content">      {{ if .Content }}        {{ .Content }}      {{ end }}      <div class="articles-grid">        {{ range .Pages }}        <div class="article-card">          <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>          {{ if .Date }}          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006年1月2日" }}</time>          {{ end }}          {{ if .Summary }}          <p>{{ .Summary }}</p>          {{ end }}        </div>        {{ end }}      </div>    </div>  </article></div>{{ end }}
+{{/*
+  Taxonomy Template (Fallback)
+
+  Fallback template for individual taxonomy term pages.
+  Hugo's lookup order prefers term.html over taxonomy.html,
+  so this serves as a backup for compatibility.
+
+  @context {Page} . The taxonomy term page context
+  @returns {string} Article listing for the given term
+*/}}
+
+{{ define "main" }}
+<div class="container">
+  {{/* Breadcrumb navigation */}}
+  <nav aria-label="Breadcrumb" class="breadcrumb-nav my-3">
+    <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="{{ "/" | relLangURL }}" itemprop="item">
+          <span itemprop="name">Home</span>
+        </a>
+        <meta itemprop="position" content="1">
+      </li>
+      <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        {{ if eq .Data.Singular "tag" }}
+          <a href="{{ "/tags/" | relLangURL }}" itemprop="item">
+            <span itemprop="name">タグ</span>
+          </a>
+        {{ else if eq .Data.Singular "category" }}
+          <a href="{{ "/categories/" | relLangURL }}" itemprop="item">
+            <span itemprop="name">カテゴリ</span>
+          </a>
+        {{ else }}
+          <a href="{{ .Parent.RelPermalink }}" itemprop="item">
+            <span itemprop="name">{{ .Data.Plural | title }}</span>
+          </a>
+        {{ end }}
+        <meta itemprop="position" content="2">
+      </li>
+      <li class="breadcrumb-item active" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <span itemprop="name">{{ .Title }}</span>
+        <meta itemprop="position" content="3">
+      </li>
+    </ol>
+  </nav>
+
+  <section itemscope itemtype="https://schema.org/CollectionPage">
+    <header class="page-header">
+      {{ if eq .Data.Singular "tag" }}
+        <h1 itemprop="name">タグ: {{ .Title }}</h1>
+      {{ else if eq .Data.Singular "category" }}
+        <h1 itemprop="name">カテゴリ: {{ .Title }}</h1>
+      {{ else }}
+        <h1 itemprop="name">{{ .Title }}</h1>
+      {{ end }}
+      {{ if .Content }}
+      <div class="page-description lead" itemprop="description">
+        {{ .Content }}
+      </div>
+      {{ end }}
+      {{ if .Pages }}
+      <p class="page-count text-muted">
+        {{ len .Pages }}件の記事
+      </p>
+      {{ end }}
+    </header>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="articles-grid" role="main" aria-label="{{ .Title }} articles">
+          {{ range .Pages }}
+            {{ partial "article-card.html" . }}
+          {{ end }}
+        </div>
+
+        {{/* Pagination */}}
+        {{ template "_internal/pagination.html" . }}
+      </div>
+
+      <aside class="col-lg-4" role="complementary" aria-label="Sidebar">
+        <div class="sidebar-content">
+          {{ partial "ads/sidebar.html" . }}
+        </div>
+      </aside>
+    </div>
+  </section>
+</div>
+{{ end }}
