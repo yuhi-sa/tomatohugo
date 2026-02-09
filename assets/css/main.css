@@ -496,3 +496,103 @@ body {
     font-weight: var(--font-bold);
     letter-spacing: -0.01em;
 }
+
+/* ============================================
+ * POST NAVIGATION (Prev/Next)
+ * ============================================ */
+
+.post-nav {
+  display: flex;
+  gap: var(--space-4);
+  border-top: 1px solid var(--border-light);
+  padding-top: var(--space-6);
+}
+
+.post-nav__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--text-secondary);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.post-nav__item:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.post-nav__item--next {
+  text-align: right;
+}
+
+.post-nav__label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.post-nav__title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-tight);
+}
+
+/* ============================================
+ * RELATED POSTS
+ * ============================================ */
+
+.related-posts {
+  border-top: 1px solid var(--border-light);
+  padding-top: var(--space-6);
+}
+
+.related-posts__title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--space-4);
+  color: var(--text-primary);
+}
+
+.related-posts__grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.related-posts__item {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast);
+}
+
+.related-posts__item:hover {
+  border-color: var(--accent);
+}
+
+.related-posts__item-title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  margin: 0 0 var(--space-1) 0;
+}
+
+.related-posts__item-title a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.related-posts__item-title a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .post-nav {
+    flex-direction: column;
+  }
+}

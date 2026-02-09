@@ -86,8 +86,50 @@
         <meta itemprop="url" content="{{ .Permalink }}">
       </article>
       
+      <!-- Post Navigation (Prev/Next) -->
+      {{ if or .PrevInSection .NextInSection }}
+      <nav class="post-nav mt-5" aria-label="Post navigation">
+        {{ with .PrevInSection }}
+        <a href="{{ .RelPermalink }}" class="post-nav__item post-nav__item--prev">
+          <span class="post-nav__label text-muted">
+            <i class="fas fa-arrow-left me-1" aria-hidden="true"></i>前の記事
+          </span>
+          <span class="post-nav__title">{{ .LinkTitle }}</span>
+        </a>
+        {{ end }}
+        {{ with .NextInSection }}
+        <a href="{{ .RelPermalink }}" class="post-nav__item post-nav__item--next">
+          <span class="post-nav__label text-muted">
+            次の記事<i class="fas fa-arrow-right ms-1" aria-hidden="true"></i>
+          </span>
+          <span class="post-nav__title">{{ .LinkTitle }}</span>
+        </a>
+        {{ end }}
+      </nav>
+      {{ end }}
+
+      <!-- Related Posts -->
+      {{ $related := site.RegularPages.Related . | first 3 }}
+      {{ with $related }}
+      <section class="related-posts mt-5" aria-label="Related posts">
+        <h2 class="related-posts__title">関連記事</h2>
+        <div class="related-posts__grid">
+          {{ range . }}
+          <article class="related-posts__item">
+            <h3 class="related-posts__item-title">
+              <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+            </h3>
+            <div class="card-meta">
+              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+            </div>
+          </article>
+          {{ end }}
+        </div>
+      </section>
+      {{ end }}
+
       <!-- Navigation -->
-      <nav class="article-navigation mt-5" aria-label="Article navigation">
+      <nav class="article-navigation mt-4" aria-label="Article navigation">
         <a href="{{ "/posts/" | relLangURL }}" class="btn btn-outline-secondary btn-sm mb-3">
           <i class="fas fa-arrow-left me-1" aria-hidden="true"></i>
           Back to posts
