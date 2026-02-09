@@ -88,10 +88,11 @@
       
       <!-- Navigation -->
       <nav class="article-navigation mt-5" aria-label="Article navigation">
+        <a href="{{ "/posts/" | relLangURL }}" class="btn btn-outline-secondary btn-sm mb-3">
+          <i class="fas fa-arrow-left me-1" aria-hidden="true"></i>
+          Back to posts
+        </a>
         {{ partial "breadcrumbs.html" . }}
-        {{- if .Params.tags }}
-          {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
-        {{- end }}
       </nav>
     </div>
   </div>

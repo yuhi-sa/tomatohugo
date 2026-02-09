@@ -20,69 +20,7 @@
       <div class="col-lg-8">
         <div class="articles-grid" role="main" aria-label="{{ .Title }} articles">
           {{ range .Pages }}
-          <article class="card article-card" itemscope itemtype="https://schema.org/Article">
-            <div class="card-body">
-              <div class="card-content">
-                <header class="article-header">
-                  <h2 class="card-title">
-                    <a href="{{ .RelPermalink }}" 
-                       itemprop="url"
-                       class="article-link">
-                      <span itemprop="headline">{{ .LinkTitle }}</span>
-                    </a>
-                  </h2>
-                  
-                  <div class="card-meta">
-                    <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" 
-                          itemprop="datePublished">
-                      <i class="far fa-calendar-alt" aria-hidden="true"></i>
-                      {{ .Date.Format "January 2, 2006" }}
-                    </time>
-                    
-                    {{ with .Params.author }}
-                    <span itemprop="author" itemscope itemtype="https://schema.org/Person">
-                      <i class="far fa-user" aria-hidden="true"></i>
-                      <span itemprop="name">{{ . }}</span>
-                    </span>
-                    {{ end }}
-                    
-                    {{ if .ReadingTime }}
-                    <span>
-                      <i class="far fa-clock" aria-hidden="true"></i>
-                      {{ .ReadingTime }} min read
-                    </span>
-                    {{ end }}
-                  </div>
-                </header>
-                
-                <div class="article-excerpt">
-                  <p itemprop="description">{{ .Summary | plainify | truncate 150 "..." }}</p>
-                </div>
-                
-                {{ with .Params.tags }}
-                <div class="article-tags">
-                  {{ range . }}
-                  <a href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}" 
-                     class="badge badge-custom" 
-                     rel="tag"
-                     itemprop="keywords">{{ . }}</a>
-                  {{ end }}
-                </div>
-                {{ end }}
-              </div>
-              
-              <footer class="card-footer">
-                <a href="{{ .RelPermalink }}" 
-                   class="btn btn-primary btn-sm"
-                   aria-label="Read full article: {{ .LinkTitle }}">
-                  Read More
-                  <i class="fas fa-arrow-right ms-2" aria-hidden="true"></i>
-                </a>
-              </footer>
-              
-              <meta itemprop="url" content="{{ .Permalink }}">
-            </div>
-          </article>
+            {{ partial "article-card.html" . }}
           {{ end }}
         </div>
       </div>
