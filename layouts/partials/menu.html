@@ -1,55 +1,60 @@
-{{/*
-  Main Navigation Menu Component
-  
+{{/* Main Navigation Menu Component
+
   Renders the primary site navigation with:
   - Responsive mobile/desktop layout
   - Active state detection
   - Dark mode toggle integration
   - Accessibility support (ARIA, keyboard navigation)
-  
+
   @context {Page} .page The current page context
   @context {string} .menuID The menu identifier from site configuration
   @returns {string} HTML navigation structure
-  @example {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+  @example {{ partial "menu.html" (dict "menuID" "main" "page" .)
+}}
 */}}
-
 {{- $page := .page }}
 {{- $menuID := .menuID }}
 {{- $menuEntries := index site.Menus $menuID }}
 
 {{- with $menuEntries }}
   {{/* Site brand/logo */}}
-  <a class="navbar-brand" 
-     href="{{ site.BaseURL }}" 
-     aria-label="Return to {{ site.Title }} homepage">
+  <a
+    class="navbar-brand"
+    href="{{ site.BaseURL }}"
+    aria-label="Return to {{ site.Title }} homepage"
+  >
     {{ site.Title }}
   </a>
-  
+
   {{/* Mobile menu toggle button */}}
-  <button class="navbar-toggler d-lg-none" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#navbarNav" 
-          aria-controls="navbarNav" 
-          aria-expanded="false" 
-          aria-label="Toggle navigation menu">
+  <button
+    class="navbar-toggler d-lg-none"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation menu"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
-  
+
   {{/* Main navigation menu */}}
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ms-auto" role="menubar">
       {{/* Render menu items recursively */}}
       {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
-      
+
       {{/* Dark mode toggle */}}
       <li class="nav-item" role="none">
-        <button id="darkModeToggle" 
-                class="nav-link btn btn-link border-0" 
-                type="button" 
-                role="menuitem"
-                aria-label="Toggle dark mode"
-                title="Switch between light and dark themes">
+        <button
+          id="darkModeToggle"
+          class="nav-link btn btn-link border-0"
+          type="button"
+          role="menuitem"
+          aria-label="Toggle dark mode"
+          title="Switch between light and dark themes"
+        >
           <i class="fas fa-moon" id="darkModeIcon" aria-hidden="true"></i>
           <span class="d-lg-none ms-2">ダークモード</span>
         </button>

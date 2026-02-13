@@ -39,113 +39,94 @@ layouts/
 All templates must include comprehensive header comments:
 
 ```html
-{{/*
-  Component Name
-  
-  Brief description of purpose and functionality
-  
-  @context {Type} variable Description of context variables
-  @param {Type} name Description of parameters (if any)
-  @returns {string} Description of output
-  @example {{ partial "component.html" . }}
-*/}}
+{{/* Component Name Brief description of purpose and functionality @context
+{Type} variable Description of context variables @param {Type} name Description
+of parameters (if any) @returns {string} Description of output @example {{
+partial "component.html" . }} */}}
 ```
 
 ### 4. Code Structure & Formatting
 
 #### Indentation Standards
+
 - **2 spaces** for all indentation
 - **No tabs** - use spaces consistently
 - **Align closing tags** with opening tags
 - **Consistent spacing** around operators and delimiters
 
 #### Template Logic Formatting
-```html
-{{/* ✅ Good: Clear structure with proper spacing */}}
-{{- if .Params.featured }}
-  <div class="featured-content">
-    {{ .Content }}
-  </div>
-{{- else }}
-  <div class="regular-content">
-    {{ .Summary }}
-  </div>
-{{- end }}
 
-{{/* ❌ Bad: Poor formatting */}}
-{{if .Params.featured}}<div class="featured-content">{{.Content}}</div>{{else}}<div class="regular-content">{{.Summary}}</div>{{end}}
+```html
+{{/* ✅ Good: Clear structure with proper spacing */}} {{- if .Params.featured
+}}
+<div class="featured-content">{{ .Content }}</div>
+{{- else }}
+<div class="regular-content">{{ .Summary }}</div>
+{{- end }} {{/* ❌ Bad: Poor formatting */}} {{if .Params.featured}}
+<div class="featured-content">{{.Content}}</div>
+{{else}}
+<div class="regular-content">{{.Summary}}</div>
+{{end}}
 ```
 
 #### Variable Naming Best Practices
-```html
-{{/* ✅ Good: Descriptive variable names */}}
-{{- $articleTitle := .Title }}
-{{- $publishDate := .Date }}
-{{- $authorName := .Params.author | default .Site.Params.author }}
-{{- $hasContent := .Content }}
 
-{{/* ❌ Bad: Unclear abbreviations */}}
-{{- $t := .Title }}
-{{- $d := .Date }}
-{{- $a := .Params.author }}
+```html
+{{/* ✅ Good: Descriptive variable names */}} {{- $articleTitle := .Title }} {{-
+$publishDate := .Date }} {{- $authorName := .Params.author | default
+.Site.Params.author }} {{- $hasContent := .Content }} {{/* ❌ Bad: Unclear
+abbreviations */}} {{- $t := .Title }} {{- $d := .Date }} {{- $a :=
+.Params.author }}
 ```
 
 ### 5. Error Handling & Data Validation
 
 #### Safe Data Access Patterns
+
 ```html
-{{/* ✅ Good: Safe access with defaults */}}
-{{ with .Params.description }}
-  <meta name="description" content="{{ . }}">
+{{/* ✅ Good: Safe access with defaults */}} {{ with .Params.description }}
+<meta name="description" content="{{ . }}" />
 {{ else }}
-  <meta name="description" content="{{ .Site.Params.description }}">
-{{ end }}
+<meta name="description" content="{{ .Site.Params.description }}" />
+{{ end }} {{/* ✅ Good: Using default function */}}
+<meta
+  name="author"
+  content="{{ .Params.author | default .Site.Params.author }}"
+/>
 
-{{/* ✅ Good: Using default function */}}
-<meta name="author" content="{{ .Params.author | default .Site.Params.author }}">
-
-{{/* ✅ Good: Multiple fallbacks */}}
-{{- $description := .Description | default .Params.description | default .Site.Params.description }}
+{{/* ✅ Good: Multiple fallbacks */}} {{- $description := .Description | default
+.Params.description | default .Site.Params.description }}
 ```
 
 #### Content Existence Validation
+
 ```html
-{{/* ✅ Good: Check for content existence */}}
-{{ if .Content }}
-  <div class="article-content">
-    {{ .Content }}
-  </div>
-{{ end }}
-
-{{/* ✅ Good: Check for non-empty values */}}
-{{ with .Title }}
-  <h1>{{ . }}</h1>
-{{ end }}
-
-{{/* ✅ Good: Check array length */}}
-{{ if gt (len .Params.tags) 0 }}
-  <div class="tags">
-    {{ range .Params.tags }}
-      <span class="tag">{{ . }}</span>
-    {{ end }}
-  </div>
+{{/* ✅ Good: Check for content existence */}} {{ if .Content }}
+<div class="article-content">{{ .Content }}</div>
+{{ end }} {{/* ✅ Good: Check for non-empty values */}} {{ with .Title }}
+<h1>{{ . }}</h1>
+{{ end }} {{/* ✅ Good: Check array length */}} {{ if gt (len .Params.tags) 0 }}
+<div class="tags">
+  {{ range .Params.tags }}
+  <span class="tag">{{ . }}</span>
+  {{ end }}
+</div>
 {{ end }}
 ```
 
 ### 6. Performance Optimization
 
 #### Partial Caching Strategy
-```html
-{{/* ✅ Cache static partials that don't change per page */}}
-{{ partialCached "head/css.html" . }}
-{{ partialCached "head/js.html" . }}
 
-{{/* ✅ Don't cache dynamic content */}}
-{{ partial "article-meta.html" . }}
-{{ partial "breadcrumbs.html" . }}
+```html
+{{/* ✅ Cache static partials that don't change per page */}} {{ partialCached
+"head/css.html" . }} {{ partialCached "head/js.html" . }} {{/* ✅ Don't cache
+dynamic content */}} {{ partial "article-meta.html" . }} {{ partial
+"breadcrumbs.html" . }}
 ```
 
 #### Resource Optimization
+
 ```html
 {{/* ✅ Good: Conditional minification and fingerprinting */}}
 {{ $css := resources.Get "css/main.css" }}
@@ -153,8 +134,8 @@ All templates must include comprehensive header comments:
   {{ $css = $css | minify | fingerprint }}
 {{ end }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}"
-      {{- if eq hugo.Environment "production" }} 
-      integrity="{{ $css.Data.Integrity }}" 
+      {{- if eq hugo.Environment "production" }}
+      integrity="{{ $css.Data.Integrity }}"
       crossorigin="anonymous"
       {{- end }}>
 
@@ -167,6 +148,7 @@ All templates must include comprehensive header comments:
 ### 7. Accessibility Requirements
 
 #### ARIA Labels & Semantic Roles
+
 ```html
 {{/* ✅ Good: Proper ARIA implementation */}}
 <nav role="navigation" aria-label="Main navigation">
@@ -187,6 +169,7 @@ All templates must include comprehensive header comments:
 ```
 
 #### Semantic HTML Structure
+
 ```html
 {{/* ✅ Good: Semantic article structure */}}
 <article itemscope itemtype="https://schema.org/Article">
@@ -208,36 +191,38 @@ All templates must include comprehensive header comments:
 ### 8. SEO & Structured Data
 
 #### Schema.org Implementation
+
 ```html
 {{/* ✅ Comprehensive article structured data */}}
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "{{ if eq .Section "posts" }}BlogPosting{{ else }}Article{{ end }}",
-  "headline": "{{ .Title }}",
-  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
-  {{- if .Lastmod }}
-  "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
-  {{- end }}
-  "author": {
-    "@type": "Person",
-    "name": "{{ .Params.author | default .Site.Params.author }}"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "{{ .Site.Title }}"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "{{ .Permalink }}"
+  {
+    "@context": "https://schema.org",
+    "@type": "{{ if eq .Section "posts" }}BlogPosting{{ else }}Article{{ end }}",
+    "headline": "{{ .Title }}",
+    "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+    {{- if .Lastmod }}
+    "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+    {{- end }}
+    "author": {
+      "@type": "Person",
+      "name": "{{ .Params.author | default .Site.Params.author }}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ .Site.Title }}"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ .Permalink }}"
+    }
   }
-}
 </script>
 ```
 
 ### 9. Internationalization (i18n)
 
 #### Multi-language Support
+
 ```html
 {{/* ✅ Good: i18n implementation */}}
 {{- $menuName := .Name }}
@@ -260,6 +245,7 @@ All templates must include comprehensive header comments:
 ## Code Review Checklist
 
 ### Template Quality
+
 - [ ] Template documentation header present
 - [ ] Proper error handling implemented
 - [ ] Variables use descriptive names
@@ -267,6 +253,7 @@ All templates must include comprehensive header comments:
 - [ ] No hardcoded values (use site config)
 
 ### Accessibility & SEO
+
 - [ ] ARIA labels and roles added where appropriate
 - [ ] Semantic HTML structure used
 - [ ] Schema.org structured data included
@@ -274,12 +261,14 @@ All templates must include comprehensive header comments:
 - [ ] Alt text for images
 
 ### Performance
+
 - [ ] Appropriate use of `partialCached`
 - [ ] Conditional resource loading
 - [ ] Minification and fingerprinting in production
 - [ ] No unnecessary template processing
 
 ### Best Practices
+
 - [ ] Follows BEM naming conventions
 - [ ] Responsive design implemented
 - [ ] Dark mode compatibility
@@ -288,18 +277,21 @@ All templates must include comprehensive header comments:
 ## Testing Requirements
 
 ### Functionality Testing
+
 - [ ] Template renders without errors
 - [ ] All conditional logic paths tested
 - [ ] Data validation works correctly
 - [ ] Fallbacks function properly
 
 ### Accessibility Testing
+
 - [ ] Keyboard navigation works
 - [ ] Screen reader compatibility
 - [ ] Color contrast ratios meet WCAG standards
 - [ ] Focus indicators visible
 
 ### Performance Testing
+
 - [ ] Page load times < 2 seconds
 - [ ] Lighthouse score > 90
 - [ ] Mobile performance optimized
@@ -307,4 +299,4 @@ All templates must include comprehensive header comments:
 
 ---
 
-*Last updated: 2025年7月25日*
+_Last updated: 2025年7月25日_

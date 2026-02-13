@@ -1,32 +1,49 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light" role="navigation" aria-label="Main navigation">
+<nav
+  class="navbar navbar-expand-lg navbar-light bg-light"
+  role="navigation"
+  aria-label="Main navigation"
+>
   <div class="container">
     {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
-    
+
     {{/* Fallback navigation if no menu is defined */}}
     {{ if not (index site.Menus "main") }}
-    <a class="navbar-brand" href="{{ "/" | relLangURL }}">{{ site.Title }}</a>
-    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavFallback" aria-controls="navbarNavFallback" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavFallback">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a href="{{ "/" | relLangURL }}" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ "/posts" | relLangURL }}" class="nav-link">Posts</a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ "/about" | relLangURL }}" class="nav-link">About</a>
-        </li>
-        <li class="nav-item">
-          <button id="darkModeToggle" class="nav-link btn btn-link border-0" type="button" aria-label="Toggle dark mode">
-            <i class="fas fa-moon" id="darkModeIcon"></i>
-            <span class="d-lg-none ms-2">ダークモード</span>
-          </button>
-        </li>
-      </ul>
-    </div>
+      <a class="navbar-brand" href="{{ "/" | relLangURL }}">{{ site.Title }}</a>
+      <button
+        class="navbar-toggler d-lg-none"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavFallback"
+        aria-controls="navbarNavFallback"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavFallback">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="{{ "/" | relLangURL }}" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ "/posts" | relLangURL }}" class="nav-link">Posts</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ "/about" | relLangURL }}" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <button
+              id="darkModeToggle"
+              class="nav-link btn btn-link border-0"
+              type="button"
+              aria-label="Toggle dark mode"
+            >
+              <i class="fas fa-moon" id="darkModeIcon"></i>
+              <span class="d-lg-none ms-2">ダークモード</span>
+            </button>
+          </li>
+        </ul>
+      </div>
     {{ end }}
   </div>
 </nav>

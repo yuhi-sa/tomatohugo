@@ -27,6 +27,7 @@ For comprehensive development documentation, see the [`docs/`](./docs/) director
 - **[Maintenance Guide](./docs/MAINTENANCE.md)**: Deployment and maintenance
 
 ## Configuration
+
 ```config.toml
 # Google Analytics and Adsence Configuration
 [params]
@@ -76,4 +77,5 @@ paginate = 5
 
 # Set the number of items to display per page in pagination.
 ```
+
 - [sample setting](https://github.com/yuhi-sa/blog.com/blob/main/config.toml)

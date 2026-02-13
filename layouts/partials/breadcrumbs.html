@@ -1,63 +1,75 @@
-{{/*
-  Breadcrumb Navigation Component
-  
+{{/* Breadcrumb Navigation Component
+
   Displays hierarchical navigation breadcrumbs with:
   - Schema.org structured data for SEO
   - Accessibility support (ARIA labels, keyboard navigation)
   - Responsive design for mobile/desktop
-  
+
   @context {Page} . The current page context
   @returns {string} HTML breadcrumb navigation
 */}}
 
-<nav aria-label="Breadcrumb navigation" class="breadcrumb-nav" role="navigation">
+
+<nav
+  aria-label="Breadcrumb navigation"
+  class="breadcrumb-nav"
+  role="navigation"
+>
   <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-    
     {{/* Home breadcrumb item - always present */}}
-    <li class="breadcrumb-item" 
-        itemprop="itemListElement" 
-        itemscope 
-        itemtype="https://schema.org/ListItem">
-      <a href="{{ "/" | relLangURL }}" 
-         itemprop="item"
-         aria-label="Navigate to homepage">
+    <li
+      class="breadcrumb-item"
+      itemprop="itemListElement"
+      itemscope
+      itemtype="https://schema.org/ListItem"
+    >
+      <a
+        href="{{ "/" | relLangURL }}"
+        itemprop="item"
+        aria-label="Navigate to homepage"
+      >
         <i class="fas fa-home" aria-hidden="true"></i>
         <span itemprop="name">{{ .Site.Title | default "Home" }}</span>
       </a>
       <meta itemprop="position" content="1" />
     </li>
-    
+
     {{/* Ancestor breadcrumb items - section/taxonomy pages */}}
     {{- if not .IsHome }}
       {{- range $index, $ancestor := .Ancestors.Reverse }}
         {{- if and $ancestor.Title (ne $ancestor.Title "") }}
-        <li class="breadcrumb-item" 
-            itemprop="itemListElement" 
-            itemscope 
-            itemtype="https://schema.org/ListItem">
-          <a href="{{ $ancestor.Permalink }}" 
-             itemprop="item"
-             aria-label="Navigate to {{ $ancestor.Title }}">
-            <span itemprop="name">{{ $ancestor.Title }}</span>
-          </a>
-          <meta itemprop="position" content="{{ add $index 2 }}" />
-        </li>
+          <li
+            class="breadcrumb-item"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <a
+              href="{{ $ancestor.Permalink }}"
+              itemprop="item"
+              aria-label="Navigate to {{ $ancestor.Title }}"
+            >
+              <span itemprop="name">{{ $ancestor.Title }}</span>
+            </a>
+            <meta itemprop="position" content="{{ add $index 2 }}" />
+          </li>
         {{- end }}
       {{- end }}
-      
+
       {{/* Current page breadcrumb item - not linked */}}
       {{- with .Title }}
-      <li class="breadcrumb-item active" 
-          aria-current="page" 
-          itemprop="itemListElement" 
-          itemscope 
-          itemtype="https://schema.org/ListItem">
-        <span itemprop="name">{{ . }}</span>
-        <meta itemprop="position" content="{{ add (len $.Ancestors) 2 }}" />
-      </li>
+        <li
+          class="breadcrumb-item active"
+          aria-current="page"
+          itemprop="itemListElement"
+          itemscope
+          itemtype="https://schema.org/ListItem"
+        >
+          <span itemprop="name">{{ . }}</span>
+          <meta itemprop="position" content="{{ add (len $.Ancestors) 2 }}" />
+        </li>
       {{- end }}
     {{- end }}
-    
+
   </ol>
 </nav>
-  

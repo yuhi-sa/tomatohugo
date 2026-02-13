@@ -1,142 +1,180 @@
 {{ define "main" }}
-<div class="container mt-4">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <article itemscope itemtype="https://schema.org/Article">
-        <!-- Article Header -->
-        <header class="article-header">
-          <h1 itemprop="headline">{{ .Title }}</h1>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <article itemscope itemtype="https://schema.org/Article">
+          <!-- Article Header -->
+          <header class="article-header">
+            <h1 itemprop="headline">{{ .Title }}</h1>
 
-          {{ if .Params.description }}
-          <p class="lead article-description" itemprop="description">
-            {{ .Params.description }}
-          </p>
-          {{ end }}
-
-          <div class="article-meta">
-            <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" itemprop="datePublished">
-              <i class="far fa-calendar-alt me-1" aria-hidden="true"></i>
-              {{ .Date.Format "January 2, 2006" }}
-            </time>
-
-            {{ if ne .Date .Lastmod }}
-            <time datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" itemprop="dateModified" class="ms-3">
-              <i class="far fa-edit me-1" aria-hidden="true"></i>
-              Updated {{ .Lastmod.Format "January 2, 2006" }}
-            </time>
+            {{ if .Params.description }}
+              <p class="lead article-description" itemprop="description">
+                {{ .Params.description }}
+              </p>
             {{ end }}
 
-            {{ with .Params.author }}
-            <span itemprop="author" itemscope itemtype="https://schema.org/Person" class="ms-3">
-              <i class="far fa-user me-1" aria-hidden="true"></i>
-              <span itemprop="name">{{ . }}</span>
-            </span>
-            {{ end }}
 
-            {{ if .ReadingTime }}
-            <span aria-label="Reading time" class="ms-3">
-              <i class="far fa-clock me-1" aria-hidden="true"></i>
-              {{ .ReadingTime }} min read
-            </span>
-            {{ end }}
-          </div>
+            <div class="article-meta">
+              <time
+                datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}"
+                itemprop="datePublished"
+              >
+                <i class="far fa-calendar-alt me-1" aria-hidden="true"></i>
+                {{ .Date.Format "January 2, 2006" }}
+              </time>
 
-          {{ with .Params.tags }}
-          <div class="article-tags" role="group" aria-label="Article tags">
-            {{ range . }}
-            <a href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}"
-               class="badge badge-custom text-decoration-none me-1"
-               rel="tag"
-               itemprop="keywords">
-              {{ . }}
-            </a>
-            {{ end }}
-          </div>
-          {{ end }}
-        </header>
-        
-        <!-- Featured Image -->
-        {{ with .Params.images }}
-        <figure class="article-image text-center my-4">
-          <img src="{{ index . 0 | absURL }}"
-               class="img-fluid rounded"
-               alt="{{ $.Params.image_alt | default $.Title }}"
-               itemprop="image"
-               loading="lazy"
-               width="{{ $.Params.image_width | default 1200 }}"
-               height="{{ $.Params.image_height | default 630 }}">
-          {{ if $.Params.image_caption }}
-          <figcaption class="text-muted small mt-2">{{ $.Params.image_caption }}</figcaption>
-          {{ end }}
-        </figure>
-        {{ end }}
-        
-        <!-- Article Content -->
-        <div class="article-content" itemprop="articleBody">
-          {{ .Content }}
-        </div>
-        
-        <!-- Article Footer -->
-        <footer class="article-footer">
-          <!-- Sharing removed as requested -->
-        </footer>
+              {{ if ne .Date .Lastmod }}
+                <time
+                  datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}"
+                  itemprop="dateModified"
+                  class="ms-3"
+                >
+                  <i class="far fa-edit me-1" aria-hidden="true"></i>
+                  Updated
+                  {{ .Lastmod.Format "January 2, 2006" }}
+                </time>
+              {{ end }}
 
-        <!-- Schema.org Metadata -->
-        <meta itemprop="wordCount" content="{{ .WordCount }}">
-        <meta itemprop="url" content="{{ .Permalink }}">
-      </article>
-      
-      <!-- Post Navigation (Prev/Next) -->
-      {{ if or .PrevInSection .NextInSection }}
-      <nav class="post-nav mt-5" aria-label="Post navigation">
-        {{ with .PrevInSection }}
-        <a href="{{ .RelPermalink }}" class="post-nav__item post-nav__item--prev">
-          <span class="post-nav__label text-muted">
-            <i class="fas fa-arrow-left me-1" aria-hidden="true"></i>前の記事
-          </span>
-          <span class="post-nav__title">{{ .LinkTitle }}</span>
-        </a>
-        {{ end }}
-        {{ with .NextInSection }}
-        <a href="{{ .RelPermalink }}" class="post-nav__item post-nav__item--next">
-          <span class="post-nav__label text-muted">
-            次の記事<i class="fas fa-arrow-right ms-1" aria-hidden="true"></i>
-          </span>
-          <span class="post-nav__title">{{ .LinkTitle }}</span>
-        </a>
-        {{ end }}
-      </nav>
-      {{ end }}
+              {{ with .Params.author }}
+                <span
+                  itemprop="author"
+                  itemscope
+                  itemtype="https://schema.org/Person"
+                  class="ms-3"
+                >
+                  <i class="far fa-user me-1" aria-hidden="true"></i>
+                  <span itemprop="name">{{ . }}</span>
+                </span>
+              {{ end }}
 
-      <!-- Related Posts -->
-      {{ $related := site.RegularPages.Related . | first 3 }}
-      {{ with $related }}
-      <section class="related-posts mt-5" aria-label="Related posts">
-        <h2 class="related-posts__title">関連記事</h2>
-        <div class="related-posts__grid">
-          {{ range . }}
-          <article class="related-posts__item">
-            <h3 class="related-posts__item-title">
-              <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-            </h3>
-            <div class="card-meta">
-              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+              {{ if .ReadingTime }}
+                <span aria-label="Reading time" class="ms-3">
+                  <i class="far fa-clock me-1" aria-hidden="true"></i>
+                  {{ .ReadingTime }} min read
+                </span>
+              {{ end }}
             </div>
-          </article>
-          {{ end }}
-        </div>
-      </section>
-      {{ end }}
 
-      <!-- Navigation -->
-      <nav class="article-navigation mt-4" aria-label="Article navigation">
-        <a href="{{ "/posts/" | relLangURL }}" class="btn btn-outline-secondary btn-sm mb-3">
-          <i class="fas fa-arrow-left me-1" aria-hidden="true"></i>
-          Back to posts
-        </a>
-        {{ partial "breadcrumbs.html" . }}
-      </nav>
+            {{ with .Params.tags }}
+              <div class="article-tags" role="group" aria-label="Article tags">
+                {{ range . }}
+                  <a
+                    href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}"
+                    class="badge badge-custom text-decoration-none me-1"
+                    rel="tag"
+                    itemprop="keywords"
+                  >
+                    {{ . }}
+                  </a>
+                {{ end }}
+              </div>
+            {{ end }}
+          </header>
+
+          <!-- Featured Image -->
+          {{ with .Params.images }}
+            <figure class="article-image text-center my-4">
+              <img
+                src="{{ index . 0 | absURL }}"
+                class="img-fluid rounded"
+                alt="{{ $.Params.image_alt | default $.Title }}"
+                itemprop="image"
+                loading="lazy"
+                width="{{ $.Params.image_width | default 1200 }}"
+                height="{{ $.Params.image_height | default 630 }}"
+              />
+              {{ if $.Params.image_caption }}
+                <figcaption class="text-muted small mt-2">
+                  {{ $.Params.image_caption }}
+                </figcaption>
+              {{ end }}
+            </figure>
+          {{ end }}
+
+
+          <!-- Article Content -->
+          <div class="article-content" itemprop="articleBody">
+            {{ .Content }}
+          </div>
+
+          <!-- Article Footer -->
+          <footer class="article-footer">
+            <!-- Sharing removed as requested -->
+          </footer>
+
+          <!-- Schema.org Metadata -->
+          <meta itemprop="wordCount" content="{{ .WordCount }}" />
+          <meta itemprop="url" content="{{ .Permalink }}" />
+        </article>
+
+        <!-- Post Navigation (Prev/Next) -->
+        {{ if or .PrevInSection .NextInSection }}
+          <nav class="post-nav mt-5" aria-label="Post navigation">
+            {{ with .PrevInSection }}
+              <a
+                href="{{ .RelPermalink }}"
+                class="post-nav__item post-nav__item--prev"
+              >
+                <span class="post-nav__label text-muted">
+                  <i class="fas fa-arrow-left me-1" aria-hidden="true"></i
+                  >前の記事
+                </span>
+                <span class="post-nav__title">{{ .LinkTitle }}</span>
+              </a>
+            {{ end }}
+            {{ with .NextInSection }}
+              <a
+                href="{{ .RelPermalink }}"
+                class="post-nav__item post-nav__item--next"
+              >
+                <span class="post-nav__label text-muted">
+                  次の記事<i
+                    class="fas fa-arrow-right ms-1"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+                <span class="post-nav__title">{{ .LinkTitle }}</span>
+              </a>
+            {{ end }}
+          </nav>
+        {{ end }}
+
+
+        <!-- Related Posts -->
+        {{ $related := site.RegularPages.Related . | first 3 }}
+        {{ with $related }}
+          <section class="related-posts mt-5" aria-label="Related posts">
+            <h2 class="related-posts__title">関連記事</h2>
+            <div class="related-posts__grid">
+              {{ range . }}
+                <article class="related-posts__item">
+                  <h3 class="related-posts__item-title">
+                    <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+                  </h3>
+                  <div class="card-meta">
+                    <time datetime="{{ .Date.Format "2006-01-02" }}"
+                      >{{ .Date.Format "January 2, 2006" }}</time
+                    >
+                  </div>
+                </article>
+              {{ end }}
+            </div>
+          </section>
+        {{ end }}
+
+
+        <!-- Navigation -->
+        <nav class="article-navigation mt-4" aria-label="Article navigation">
+          <a
+            href="{{ "/posts/" | relLangURL }}"
+            class="btn btn-outline-secondary btn-sm mb-3"
+          >
+            <i class="fas fa-arrow-left me-1" aria-hidden="true"></i>
+            Back to posts
+          </a>
+          {{ partial "breadcrumbs.html" . }}
+        </nav>
+      </div>
     </div>
   </div>
-</div>
 {{ end }}

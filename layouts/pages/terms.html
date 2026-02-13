@@ -1,26 +1,26 @@
 {{ define "main" }}
-<div class="container">
-  <article>
-    <header class="article-header">
-      {{ if eq .Data.Singular "tag" }}
-        <h1>すべてのタグ</h1>
-      {{ else if eq .Data.Singular "category" }}
-        <h1>すべてのカテゴリ</h1>
-      {{ else }}
-        <h1>{{ .Title }}</h1>
-      {{ end }}
-    </header>
-
-    <div class="article-content">
-      <ul class="tag-list">
-        {{ range .Data.Terms.Alphabetical }}
-        <li>
-          <a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a>
-          <span class="tag-count">({{ .Count }})</span>
-        </li>
+  <div class="container">
+    <article>
+      <header class="article-header">
+        {{ if eq .Data.Singular "tag" }}
+          <h1>すべてのタグ</h1>
+        {{ else if eq .Data.Singular "category" }}
+          <h1>すべてのカテゴリ</h1>
+        {{ else }}
+          <h1>{{ .Title }}</h1>
         {{ end }}
-      </ul>
-    </div>
-  </article>
-</div>
+      </header>
+
+      <div class="article-content">
+        <ul class="tag-list">
+          {{ range .Data.Terms.Alphabetical }}
+            <li>
+              <a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a>
+              <span class="tag-count">({{ .Count }})</span>
+            </li>
+          {{ end }}
+        </ul>
+      </div>
+    </article>
+  </div>
 {{ end }}

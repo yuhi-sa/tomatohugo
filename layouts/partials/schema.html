@@ -1,12 +1,11 @@
-{{/*
-  Schema.org Structured Data Component
-  
+{{/* Schema.org Structured Data Component
+
   Generates comprehensive structured data for:
   - Articles and blog posts
   - Website/homepage
   - Collection pages (lists, taxonomies)
   - Enhanced SEO and search result appearance
-  
+
   @context {Page} . The current page context
   @returns {string} JSON-LD structured data script
 */}}
@@ -69,7 +68,6 @@
     {{- end }}
   }
   </script>
-
 {{- else if .IsHome }}
   {{/* Website/Blog Schema */}}
   <script type="application/ld+json">
@@ -103,7 +101,6 @@
     "inLanguage": "{{ .Site.Language.Lang | default "en" }}"
   }
   </script>
-
 {{- else }}
   {{/* Collection Page Schema (Lists, Taxonomies) */}}
   <script type="application/ld+json">

@@ -1,10 +1,13 @@
-<div class="container pt-4 pb-3" style="border-top: 2px solid var(--accent, #e54d2e);">
+<div
+  class="container pt-4 pb-3"
+  style="border-top: 2px solid var(--accent, #e54d2e);"
+>
   <div class="row justify-content-center">
     <div class="col-md-8 text-center">
-      
       {{/* Copyright notice */}}
       <p class="copyright-text text-muted mb-2">
-        &copy; {{ now.Year }} 
+        &copy;
+        {{ now.Year }}
         {{- with .Site.Params.author }}
           {{ . }}
         {{- else }}
@@ -12,30 +15,36 @@
         {{- end }}.
         All rights reserved.
       </p>
-      
+
       {{/* Optional footer message */}}
       {{- with .Site.Params.footer_message }}
-      <p class="footer-message text-muted small mb-0">
-        {{ . | markdownify }}
-      </p>
+        <p class="footer-message text-muted small mb-0">
+          {{ . | markdownify }}
+        </p>
       {{- end }}
-      
+
       {{/* Theme attribution (can be removed if desired) */}}
       {{- if not .Site.Params.hide_theme_attribution }}
-      <p class="theme-attribution text-muted small mt-2 mb-0">
-        Powered by 
-        <a href="https://gohugo.io/" 
-           target="_blank" 
-           rel="noopener"
-           class="text-decoration-none">Hugo</a>
-        with 
-        <a href="https://github.com/yuhi-sa/tomatohugo" 
-           target="_blank" 
-           rel="noopener"
-           class="text-decoration-none">TomatoHugo</a>
-      </p>
+        <p class="theme-attribution text-muted small mt-2 mb-0">
+          Powered by
+          <a
+            href="https://gohugo.io/"
+            target="_blank"
+            rel="noopener"
+            class="text-decoration-none"
+            >Hugo</a
+          >
+          with
+          <a
+            href="https://github.com/yuhi-sa/tomatohugo"
+            target="_blank"
+            rel="noopener"
+            class="text-decoration-none"
+            >TomatoHugo</a
+          >
+        </p>
       {{- end }}
-      
+
     </div>
   </div>
 </div>
