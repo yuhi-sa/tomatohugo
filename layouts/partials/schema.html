@@ -68,6 +68,28 @@
     {{- end }}
   }
   </script>
+  {{/* BreadcrumbList for articles */}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {{- range $index, $ancestor := .Ancestors.Reverse }}
+      {{ if $index }},{{ end }}{
+        "@type": "ListItem",
+        "position": {{ add $index 1 }},
+        "name": "{{ $ancestor.Title }}",
+        "item": "{{ $ancestor.Permalink }}"
+      }
+      {{- end }}
+      ,{
+        "@type": "ListItem",
+        "position": {{ add (len .Ancestors) 1 }},
+        "name": "{{ .Title }}"
+      }
+    ]
+  }
+  </script>
 {{- else if .IsHome }}
   {{/* Website/Blog Schema */}}
   <script type="application/ld+json">
@@ -134,23 +156,17 @@
     "breadcrumb": {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "{{ .Site.Title }}",
-          "item": "{{ .Site.BaseURL }}"
-        }
         {{- range $index, $ancestor := .Ancestors.Reverse }}
-        ,{
+        {{ if $index }},{{ end }}{
           "@type": "ListItem",
-          "position": {{ add $index 2 }},
+          "position": {{ add $index 1 }},
           "name": "{{ $ancestor.Title }}",
           "item": "{{ $ancestor.Permalink }}"
         }
         {{- end }}
         ,{
           "@type": "ListItem",
-          "position": {{ add (len .Ancestors) 2 }},
+          "position": {{ add (len .Ancestors) 1 }},
           "name": "{{ .Title }}"
         }
       ]

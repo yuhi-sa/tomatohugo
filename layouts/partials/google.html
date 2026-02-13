@@ -1,22 +1,9 @@
-{{ if site.Params.GoogleAnalyticsID }}
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script
-    async
-    src="https://www.googletagmanager.com/gtag/js?id={{ site.Params.GoogleAnalyticsID }}"
-  ></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', '{{ site.Params.GoogleAnalyticsID }}');
-  </script>
-{{ end }}
-
 {{ if .Site.Params.adsenseClientID }}
   <!-- Google AdSense -->
   <script
     data-ad-client="{{ .Site.Params.adsenseClientID }}"
     async
+    crossorigin="anonymous"
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   ></script>
 {{ end }}
