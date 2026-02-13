@@ -3,7 +3,6 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 {{ range .Data.Pages }}
-  {{ if .IsPage }}
   <url>
     <loc>{{ .Permalink }}</loc>
     {{ if not .Lastmod.IsZero }}
@@ -28,10 +27,12 @@
       </image:image>
       {{ end }}
     {{ end }}
+    {{ if .IsTranslated }}
+    <xhtml:link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" />
     {{ range .Translations }}
     <xhtml:link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" />
     {{ end }}
+    {{ end }}
   </url>
-  {{ end }}
 {{ end }}
 </urlset>

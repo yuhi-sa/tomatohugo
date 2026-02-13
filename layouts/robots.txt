@@ -9,6 +9,8 @@ Disallow:
 
 {{ if not (eq .Site.BaseURL "http://localhost:1313") }}
 Sitemap: {{ "sitemap.xml" | absURL }}
+Sitemap: https://yuhi-sa.github.io/devtoolbox/sitemap.xml
+Sitemap: https://yuhi-sa.github.io/calcbox/sitemap.xml
 {{ end }}
 
 # Block AI crawlers if specified
