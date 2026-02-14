@@ -145,19 +145,13 @@
 {{/* Preload critical JavaScript */}}
 {{ partialCached "head/js.html" . }}
 
-{{/* MathJax Configuration (if math content is detected) */}}
-{{- if or .Params.math (in .Content "$$") (in .Content "\\(") }}
+{{/* MathJax Configuration (if math content is detected via passthrough render hooks) */}}
+{{- if or .Params.math (in .Content "\\(") (in .Content "\\[") }}
   <script>
     window.MathJax = {
       tex: {
-        inlineMath: [
-          ["$", "$"],
-          ["\\(", "\\)"],
-        ],
-        displayMath: [
-          ["$$", "$$"],
-          ["\\[", "\\]"],
-        ],
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]],
         processEscapes: true,
         processEnvironments: true,
       },
