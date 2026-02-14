@@ -1,40 +1,37 @@
 {{ define "main" }}
-  <div class="container mt-4">
-    <div class="row justify-content-center">
-      <div class="col-lg-9">
-        <section itemscope itemtype="https://schema.org/CollectionPage">
-          <header class="page-header">
-            {{ if eq .Data.Singular "tag" }}
-              <h1 itemprop="name">すべてのタグ</h1>
-            {{ else if eq .Data.Singular "category" }}
-              <h1 itemprop="name">すべてのカテゴリ</h1>
-            {{ else }}
-              <h1 itemprop="name">{{ .Title }}</h1>
-            {{ end }}
-            <p class="text-muted">
-              {{ len .Data.Terms }}件の{{ if eq .Data.Singular "tag" }}
-                タグ
-              {{ else }}
-                カテゴリ
-              {{ end }}
-            </p>
-          </header>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+      <section itemscope itemtype="https://schema.org/CollectionPage">
+        <header class="page-header">
+          {{ if eq .Data.Singular "tag" }}
+          <h1 itemprop="name">すべてのタグ</h1>
+          {{ else if eq .Data.Singular "category" }}
+          <h1 itemprop="name">すべてのカテゴリ</h1>
+          {{ else }}
+          <h1 itemprop="name">{{ .Title }}</h1>
+          {{ end }}
+          <p class="text-muted">
+            {{ len .Data.Terms }}件の{{ if eq .Data.Singular "tag" }} タグ {{ else }} カテゴリ {{
+            end }}
+          </p>
+        </header>
 
-          <div class="tag-cloud" role="list" aria-label="Tags">
-            {{ range .Data.Terms.Alphabetical }}
-              <a
-                href="{{ .Page.Permalink }}"
-                class="tag-cloud__item"
-                role="listitem"
-                title="{{ .Page.Title }} ({{ .Count }}件の記事)"
-              >
-                <span class="tag-cloud__name">{{ .Page.Title }}</span>
-                <span class="tag-cloud__count">{{ .Count }}</span>
-              </a>
-            {{ end }}
-          </div>
-        </section>
-      </div>
+        <div class="tag-cloud" role="list" aria-label="Tags">
+          {{ range .Data.Terms.Alphabetical }}
+          <a
+            href="{{ .Page.Permalink }}"
+            class="tag-cloud__item"
+            role="listitem"
+            title="{{ .Page.Title }} ({{ .Count }}件の記事)"
+          >
+            <span class="tag-cloud__name">{{ .Page.Title }}</span>
+            <span class="tag-cloud__count">{{ .Count }}</span>
+          </a>
+          {{ end }}
+        </div>
+      </section>
     </div>
   </div>
+</div>
 {{ end }}

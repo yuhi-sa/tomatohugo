@@ -1,0 +1,8 @@
+layouts/**/*.html
+layouts/**/*.xml
+layouts/**/*.txt
+layouts/**/*.md
+layouts/**/*.json
+layouts/**/*.toml
+layouts/**/*.yaml
+layouts/**/*.yml

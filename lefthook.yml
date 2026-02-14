@@ -1,0 +1,7 @@
+  commands:
+    prettier:
+      run: npx prettier --write layouts/**/*.html assets/**/*.css assets/**/*.js
+pre-commit:
+  commands:
+    prettier:
+      run: npx prettier --write assets/**/*.css assets/**/*.js

@@ -1,70 +1,46 @@
-{{/* Terms (Tags/Categories) Display Component
+{{/* Terms (Tags/Categories) Display Component Renders taxonomy terms with: - Semantic HTML
+structure - Accessibility support - Flexible styling options - SEO-friendly links @context {Page}
+.page The current page context @context {string} .taxonomy The taxonomy name (e.g., "tags",
+"categories") @param {string} .class Optional CSS class for styling @returns {string} HTML terms
+list @example {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }} */}} {{- $page := .page
+}} {{- $taxonomy := .taxonomy }} {{- $customClass := .class | default "" }} {{- $siteTaxonomy :=
+index $page.Site.Taxonomies $taxonomy }} {{- with $page.GetTerms $taxonomy }} {{- $taxonomyLabel :=
+(index . 0).Parent.LinkTitle }} {{- $termCount := len . }}
 
-  Renders taxonomy terms with:
-  - Semantic HTML structure
-  - Accessibility support
-  - Flexible styling options
-  - SEO-friendly links
+<div class="terms-wrapper {{ $customClass }}" role="region" aria-label="{{ $taxonomyLabel }}">
+  {{/* Terms label */}}
+  <h6 class="terms-label" id="terms-{{ $taxonomy }}">{{ $taxonomyLabel }}:</h6>
 
-  @context {Page} .page The current page context
-  @context {string} .taxonomy The taxonomy name (e.g., "tags", "categories")
-  @param {string} .class Optional CSS class for styling
-  @returns {string} HTML terms list
-  @example {{ partial "terms.html" (dict "taxonomy" "tags" "page" .)
-}}
-*/}}
-{{- $page := .page }}
-{{- $taxonomy := .taxonomy }}
-{{- $customClass := .class | default "" }}
-{{- $siteTaxonomy := index $page.Site.Taxonomies $taxonomy }}
-
-{{- with $page.GetTerms $taxonomy }}
-  {{- $taxonomyLabel := (index . 0).Parent.LinkTitle }}
-  {{- $termCount := len . }}
-
-
-  <div
-    class="terms-wrapper {{ $customClass }}"
-    role="region"
-    aria-label="{{ $taxonomyLabel }}"
+  {{/* Terms list */}}
+  <ul
+    class="terms-list"
+    role="list"
+    aria-labelledby="terms-{{ $taxonomy }}"
+    aria-describedby="terms-count-{{ $taxonomy }}"
   >
-    {{/* Terms label */}}
-    <h6 class="terms-label" id="terms-{{ $taxonomy }}">
-      {{ $taxonomyLabel }}:
-    </h6>
-
-    {{/* Terms list */}}
-    <ul
-      class="terms-list"
-      role="list"
-      aria-labelledby="terms-{{ $taxonomy }}"
-      aria-describedby="terms-count-{{ $taxonomy }}"
-    >
-      {{- range . }}
-        {{- $termKey := .LinkTitle | urlize }}
-        {{- $termPages := index $siteTaxonomy $termKey }}
-        {{- $count := len $termPages.Pages }}
-        <li class="terms-item" role="listitem">
-          <a
-            href="{{ .RelPermalink }}"
-            class="terms-link badge badge-custom text-decoration-none"
-            rel="tag"
-            aria-label="View all posts tagged with {{ .LinkTitle }}"
-            title="{{ .LinkTitle }} ({{ $count }} {{ if eq $count 1 }}
+    {{- range . }} {{- $termKey := .LinkTitle | urlize }} {{- $termPages := index $siteTaxonomy
+    $termKey }} {{- $count := len $termPages.Pages }}
+    <li class="terms-item" role="listitem">
+      <a
+        href="{{ .RelPermalink }}"
+        class="terms-link badge badge-custom text-decoration-none"
+        rel="tag"
+        aria-label="View all posts tagged with {{ .LinkTitle }}"
+        title="{{ .LinkTitle }} ({{ $count }} {{ if eq $count 1 }}
               post
             {{ else }}
               posts
             {{ end }})"
-          >
-            {{ .LinkTitle }}
-          </a>
-        </li>
-      {{- end }}
-    </ul>
+      >
+        {{ .LinkTitle }}
+      </a>
+    </li>
+    {{- end }}
+  </ul>
 
-    {{/* Screen reader friendly count */}}
-    <span id="terms-count-{{ $taxonomy }}" class="sr-only">
-      {{ $termCount }} {{ $taxonomyLabel | lower }} total
-    </span>
-  </div>
+  {{/* Screen reader friendly count */}}
+  <span id="terms-count-{{ $taxonomy }}" class="sr-only">
+    {{ $termCount }} {{ $taxonomyLabel | lower }} total
+  </span>
+</div>
 {{- end }}

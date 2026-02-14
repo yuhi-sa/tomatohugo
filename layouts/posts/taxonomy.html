@@ -1,43 +1,31 @@
 {{ define "main" }}
-  <div class="container">
-    <section itemscope itemtype="https://schema.org/CollectionPage">
-      <header class="page-header">
-        {{ if eq .Data.Singular "tag" }}
-          <h1 itemprop="name">タグ: {{ .Title }}</h1>
-        {{ else if eq .Data.Singular "category" }}
-          <h1 itemprop="name">カテゴリ: {{ .Title }}</h1>
-        {{ else }}
-          <h1 itemprop="name">{{ .Title }}</h1>
-        {{ end }}
-        {{ if .Content }}
-          <div class="page-description lead" itemprop="description">
-            {{ .Content }}
-          </div>
-        {{ end }}
-        {{ if .Pages }}
-          <p class="page-count text-muted">{{ len .Pages }}件の記事</p>
-        {{ end }}
-      </header>
+<div class="container">
+  <section itemscope itemtype="https://schema.org/CollectionPage">
+    <header class="page-header">
+      {{ if eq .Data.Singular "tag" }}
+      <h1 itemprop="name">タグ: {{ .Title }}</h1>
+      {{ else if eq .Data.Singular "category" }}
+      <h1 itemprop="name">カテゴリ: {{ .Title }}</h1>
+      {{ else }}
+      <h1 itemprop="name">{{ .Title }}</h1>
+      {{ end }} {{ if .Content }}
+      <div class="page-description lead" itemprop="description">{{ .Content }}</div>
+      {{ end }} {{ if .Pages }}
+      <p class="page-count text-muted">{{ len .Pages }}件の記事</p>
+      {{ end }}
+    </header>
 
-      <div class="row">
-        <div class="col-lg-8">
-          <div
-            class="articles-grid"
-            role="main"
-            aria-label="{{ .Title }} articles"
-          >
-            {{ range .Pages }}
-              {{ partial "article-card.html" . }}
-            {{ end }}
-          </div>
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="articles-grid" role="main" aria-label="{{ .Title }} articles">
+          {{ range .Pages }} {{ partial "article-card.html" . }} {{ end }}
         </div>
-
-        <aside class="col-lg-4" role="complementary" aria-label="Sidebar">
-          <div class="sidebar-content">
-            {{ partial "ads/sidebar.html" . }}
-          </div>
-        </aside>
       </div>
-    </section>
-  </div>
+
+      <aside class="col-lg-4" role="complementary" aria-label="Sidebar">
+        <div class="sidebar-content">{{ partial "ads/sidebar.html" . }}</div>
+      </aside>
+    </div>
+  </section>
+</div>
 {{ end }}
