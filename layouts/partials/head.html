@@ -17,15 +17,7 @@
 <meta name="format-detection" content="telephone=no" />
 
 {{/* Robots and indexing control */}}
-<meta
-  name="robots"
-  content="{{ if .Params.noindex }}
-    noindex
-  {{ else }}
-    index
-  {{ end }}
-  ,follow"
-/>
+<meta name="robots" content="{{ if .Params.noindex }}noindex{{ else }}index{{ end }},follow" />
 
 {{/* SEO Meta Tags */}}
 {{- $description := .Description | default .Params.description | default .Site.Params.description }}
@@ -46,32 +38,15 @@
 <link rel="canonical" href="{{ $canonical }}" />
 
 {{/* Open Graph Meta Tags */}}
-<meta
-  property="og:type"
-  content="{{ if .IsPage }}
-    article
-  {{ else }}
-    website
-  {{ end }}"
-/>
-<meta
-  property="og:title"
-  content="{{ if .IsHome }}
-    {{ .Site.Title }}
-  {{ else }}
-    {{ .Title }}
-  {{ end }}"
-/>
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}" />
 <meta
   property="og:description"
   content="{{ $description | plainify | truncate 160 }}"
 />
 <meta property="og:url" content="{{ .Permalink }}" />
 <meta property="og:site_name" content="{{ .Site.Title }}" />
-<meta
-  property="og:locale"
-  content="{{ .Site.Language.Lang | default "en_US" }}"
-/>
+<meta property="og:locale" content="{{ .Site.Language.Lang | default "en_US" }}" />
 
 {{/* Open Graph Images */}}
 {{- $ogImage := "" }}
@@ -121,14 +96,7 @@
 {{- with .Site.Params.twitter }}
   <meta name="twitter:site" content="@{{ . }}" />
 {{- end }}
-<meta
-  name="twitter:title"
-  content="{{ if .IsHome }}
-    {{ .Site.Title }}
-  {{ else }}
-    {{ .Title }}
-  {{ end }}"
-/>
+<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}" />
 <meta
   name="twitter:description"
   content="{{ $description | plainify | truncate 160 }}"
@@ -138,14 +106,7 @@
 {{- end }}
 
 {{/* Page Title */}}
-<title>
-  {{- if .IsHome }}
-    {{- .Site.Title }}{{ with .Site.Params.tagline }}- {{ . }}{{ end }}
-  {{- else }}
-    {{- .Title }} |
-    {{ .Site.Title }}
-  {{- end }}
-</title>
+<title>{{- if .IsHome }}{{ .Site.Title }}{{ with .Site.Params.tagline }} - {{ . }}{{ end }}{{- else }}{{ .Title }} | {{ .Site.Title }}{{- end }}</title>
 
 {{/* Preconnect for performance */}}
 <link rel="preconnect" href="https://fonts.googleapis.com" />
