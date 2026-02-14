@@ -7,7 +7,7 @@ Disallow: {{ . }}
 Disallow:
 {{ end }}
 
-{{ if not (eq .Site.BaseURL "http://localhost:1313") }}
+{{ if not (in .Site.BaseURL "localhost") }}
 Sitemap: {{ "sitemap.xml" | absURL }}
 Sitemap: https://yuhi-sa.github.io/devtoolbox/sitemap.xml
 Sitemap: https://yuhi-sa.github.io/calcbox/sitemap.xml
