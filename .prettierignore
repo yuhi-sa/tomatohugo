@@ -6,3 +6,4 @@ layouts/**/*.json
 layouts/**/*.toml
 layouts/**/*.yaml
 layouts/**/*.yml
+docs/
