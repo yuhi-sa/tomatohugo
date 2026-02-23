@@ -98,6 +98,36 @@
 
         <aside class="col-lg-4" role="complementary" aria-label="Sidebar">
           <div class="sidebar-content">
+            {{/* Related tags navigation */}}
+            {{ $currentTag := .Title }}
+            {{ $tags := slice }}
+            {{ range .Pages }}
+              {{ range .Params.tags }}
+                {{ if ne (. | lower) ($currentTag | lower) }}
+                  {{ $tags = $tags | append . }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+            {{ $tags = $tags | uniq }}
+
+            {{ if $tags }}
+              <nav class="tag-cloud--sidebar" aria-label="Related tags">
+                <h2 class="tag-cloud--sidebar__title">
+                  {{ if eq site.Language.Lang "en" }}Related Tags{{ else }}関連タグ{{ end }}
+                </h2>
+                <div class="tag-cloud">
+                  {{ range $tags | first 15 }}
+                    <a
+                      href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}"
+                      class="tag-cloud__item"
+                    >
+                      <span class="tag-cloud__name">{{ . }}</span>
+                    </a>
+                  {{ end }}
+                </div>
+              </nav>
+            {{ end }}
+
             {{ partial "ads/sidebar.html" . }}
           </div>
         </aside>
